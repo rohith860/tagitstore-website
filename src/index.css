@@ -7,6 +7,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   font-family:
     Inter,
     ui-sans-serif,
@@ -21,4 +22,93 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* Lightweight progressive-reveal animation for sections. */
+.premium-reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.premium-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Subtle 3D depth shared by the existing rounded cards. */
+.premium-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease;
+  will-change: transform;
+}
+
+.premium-card:hover {
+  transform: perspective(1100px)
+    translate3d(0, -5px, 0)
+    rotateX(1deg)
+    rotateY(-1deg);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+}
+
+.premium-card svg {
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.premium-card:hover svg {
+  transform: translate3d(0, -1px, 0) scale(1.035);
+}
+
+/* Button micro-interactions are applied without changing business behavior. */
+.premium-button {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.premium-button:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+}
+
+.premium-button:active {
+  transform: translate3d(0, 0, 0) scale(0.985);
+}
+
+.premium-button:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.35);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .premium-reveal,
+  .premium-card,
+  .premium-button,
+  .premium-card svg {
+    transition: none !important;
+  }
+
+  .premium-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .premium-card:hover,
+  .premium-button:hover,
+  .premium-button:active {
+    transform: none;
+  }
 }

@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 import {
 
@@ -15,6 +15,8 @@ import {
   Route,
 
   Routes,
+
+  useLocation,
 
 } from "react-router-dom";
 
@@ -123,6 +125,53 @@ const navItems = [
 ];
 
 
+
+/* =========================================================
+
+   PREMIUM MOTION LAYER
+
+========================================================= */
+
+function PremiumMotionLayer() {
+  const shouldReduceMotion = useReducedMotion();
+  const location = useLocation();
+
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    const sections = Array.from(main.querySelectorAll("section"));
+    const cards = Array.from(main.querySelectorAll("div[class*='rounded-3xl']"));
+    const buttons = Array.from(main.querySelectorAll("a.inline-flex, button"));
+
+    sections.forEach((element) => element.classList.add("premium-reveal"));
+    cards.forEach((element) => element.classList.add("premium-card"));
+    buttons.forEach((element) => element.classList.add("premium-button"));
+
+    if (shouldReduceMotion) {
+      sections.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    sections.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, [location.pathname, shouldReduceMotion]);
+
+  return null;
+}
 
 /* =========================================================
 
@@ -427,67 +476,62 @@ function Navbar() {
 
 
 function PageHero({
-
   eyebrow,
-
   title,
-
   description,
-
 }: {
-
   eyebrow: string;
-
   title: string;
-
   description: string;
-
 }) {
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-
-    <section className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24">
-
-      <div className="absolute left-[-10%] top-[-25%] h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl" />
-
-      <div className="absolute right-[-5%] bottom-[-20%] h-80 w-80 rounded-full bg-cyan-500/15 blur-3xl" />
-
-
-
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: shouldReduceMotion ? 0.01 : 0.45 }}
+      className="relative isolate overflow-hidden bg-slate-950 py-20 text-white sm:py-24"
+    >
+      <motion.div
+        aria-hidden="true"
+        className="absolute left-[-10%] top-[-25%] h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl"
+        animate={shouldReduceMotion ? undefined : { x: [0, 28, 0], y: [0, 16, 0], scale: [1, 1.08, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden="true"
+        className="absolute bottom-[-20%] right-[-5%] h-80 w-80 rounded-full bg-cyan-500/15 blur-3xl"
+        animate={shouldReduceMotion ? undefined : { x: [0, -24, 0], y: [0, -12, 0], scale: [1, 1.06, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-        <div className="max-w-3xl">
-
+        <motion.div
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0.01 : 0.7, ease: "easeOut" }}
+          className="max-w-3xl"
+        >
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
-
             {eyebrow}
-
           </p>
-
-
-
           <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-
             {title}
-
           </h1>
-
-
-
           <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-
             {description}
-
           </p>
-
-        </div>
-
+          <motion.div
+            aria-hidden="true"
+            initial={{ scaleX: 0, transformOrigin: "left" }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: shouldReduceMotion ? 0 : 0.35, duration: shouldReduceMotion ? 0.01 : 0.7 }}
+            className="mt-8 h-px max-w-sm bg-gradient-to-r from-cyan-400/80 via-indigo-500/60 to-transparent"
+          />
+        </motion.div>
       </div>
-
-    </section>
-
+    </motion.section>
   );
-
 }
 
 
@@ -795,6 +839,47 @@ function Footer() {
 ========================================================= */
 
 
+
+function AnimatedCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+  const shouldReduceMotion = useReducedMotion();
+  const [count, setCount] = useState(shouldReduceMotion ? value : 0);
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setCount(value);
+      return;
+    }
+
+    let frame = 0;
+    const start = performance.now();
+    const duration = 1200;
+
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(value * eased));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [shouldReduceMotion, value]);
+
+  return (
+    <div>
+      <motion.p
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.45 }}
+        transition={{ duration: shouldReduceMotion ? 0.01 : 0.5 }}
+        className="text-4xl font-black tabular-nums text-slate-950"
+      >
+        {count.toLocaleString()}{suffix}
+      </motion.p>
+      <p className="mt-2 text-sm text-slate-500">{label}</p>
+    </div>
+  );
+}
 
 function HomePage() {
   const shouldReduceMotion = useReducedMotion();
@@ -1180,63 +1265,11 @@ function HomePage() {
 
 
 
-            <div>
+            <AnimatedCounter value={15} suffix="+" label="Years Overall Experience" />
 
-              <p className="text-4xl font-black text-slate-950">
+            <AnimatedCounter value={1000} suffix="+" label="Satisfied Clients" />
 
-                15+
-
-              </p>
-
-
-
-              <p className="mt-2 text-sm text-slate-500">
-
-                Years Overall Experience
-
-              </p>
-
-            </div>
-
-
-
-            <div>
-
-              <p className="text-4xl font-black text-slate-950">
-
-                1000+
-
-              </p>
-
-
-
-              <p className="mt-2 text-sm text-slate-500">
-
-                Satisfied Clients
-
-              </p>
-
-            </div>
-
-
-
-            <div>
-
-              <p className="text-4xl font-black text-slate-950">
-
-                90%
-
-              </p>
-
-
-
-              <p className="mt-2 text-sm text-slate-500">
-
-                Positive Feedbacks
-
-              </p>
-
-            </div>
+            <AnimatedCounter value={90} suffix="%" label="Positive Feedbacks" />
 
 
 
@@ -2970,123 +3003,45 @@ function ContactPage() {
 
 
 
-function WebsiteLayout() {
+function AnimatedRoutes() {
+  const location = useLocation();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-
-    <div className="min-h-screen bg-white text-slate-900">
-
-      <Navbar />
-
-
-
-      <main>
-
-        <Routes>
-
-
-
-          <Route
-
-            path="/"
-
-            element={<HomePage />}
-
-          />
-
-
-
-          <Route
-
-            path="/product"
-
-            element={<ProductPage />}
-
-          />
-
-
-
-          <Route
-
-            path="/support"
-
-            element={<SupportPage />}
-
-          />
-
-
-
-          <Route
-
-            path="/about"
-
-            element={<AboutPage />}
-
-          />
-
-
-
-          <Route
-
-            path="/pricing"
-
-            element={<PricingPage />}
-
-          />
-
-
-
-          <Route
-
-            path="/contact"
-
-            element={<ContactPage />}
-
-          />
-
-
-
-          <Route
-
-            path="*"
-
-            element={
-
-              <Navigate
-
-                to="/"
-
-                replace
-
-              />
-
-            }
-
-          />
-
-
-
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+        transition={{ duration: shouldReduceMotion ? 0.01 : 0.32, ease: "easeOut" }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="/support" element={<SupportPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-
-      </main>
-
-
-
-      <Footer />
-
-    </div>
-
+      </motion.div>
+    </AnimatePresence>
   );
-
 }
 
-
-
-/* =========================================================
-
-   APP
-
-========================================================= */
+function WebsiteLayout() {
+  return (
+    <div className="min-h-screen overflow-x-clip bg-white text-slate-900">
+      <Navbar />
+      <PremiumMotionLayer />
+      <main>
+        <AnimatedRoutes />
+      </main>
+      <Footer />
+    </div>
+  );
+}
 
 
 
