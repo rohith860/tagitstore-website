@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
@@ -171,6 +171,633 @@ function PremiumMotionLayer() {
   }, [location.pathname, shouldReduceMotion]);
 
   return null;
+}
+
+/* =========================================================
+   CINEMATIC / MOTION-DESIGN LAYER
+========================================================= */
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 right-0 top-0 z-[70] h-0.5 origin-left bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400"
+      style={{ scaleX: scrollYProgress }}
+    />
+  );
+}
+
+function MotionTicker() {
+  const shouldReduceMotion = useReducedMotion();
+  const items = [
+    "Automation",
+    "Cloud access",
+    "Data security",
+    "Business insight",
+    "Customer focus",
+    "Smart workflows",
+  ];
+  const content = [...items, ...items];
+
+  return (
+    <section aria-label="TAGITStore capabilities" className="relative overflow-hidden border-y border-slate-200 bg-slate-950 py-4 text-white">
+      <div className="mx-auto flex max-w-7xl items-center gap-5 px-4 sm:px-6 lg:px-8">
+        <span className="hidden shrink-0 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-400 sm:block">In motion</span>
+        <div className="overflow-hidden">
+          <motion.div
+            className="flex min-w-max items-center gap-8"
+            animate={shouldReduceMotion ? undefined : { x: [0, -720] }}
+            transition={shouldReduceMotion ? undefined : { duration: 22, repeat: Infinity, ease: "linear" }}
+          >
+            {content.map((item, index) => (
+              <div key={`${item}-${index}`} className="flex items-center gap-8">
+                <span className="text-sm font-semibold text-slate-200">{item}</span>
+                <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+function MotionStudioSection() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const cards = [
+    {
+      title: "Automate",
+      text: "Turn repeat work into simple, dependable workflows.",
+      icon: Layers3,
+      className: "left-0 top-12 sm:left-4 lg:left-2",
+      depth: 40,
+    },
+    {
+      title: "Connect",
+      text: "Keep information accessible across the business.",
+      icon: Cloud,
+      className: "right-0 top-2 sm:right-4 lg:right-2",
+      depth: 70,
+    },
+    {
+      title: "Protect",
+      text: "Build confidence around the information that matters.",
+      icon: ShieldCheck,
+      className: "bottom-2 left-10 sm:bottom-8 sm:left-16 lg:left-20",
+      depth: 55,
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-[#05060a] py-24 text-white sm:py-32">
+      {/* Background glow */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                x: [0, 70, 0],
+                y: [0, -35, 0],
+                scale: [1, 1.15, 1],
+              }
+        }
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : {
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }
+        }
+      />
+
+      <motion.div
+        aria-hidden="true"
+        className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-cyan-400/15 blur-3xl"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                x: [0, -50, 0],
+                y: [0, 30, 0],
+                scale: [1, 1.12, 1],
+              }
+        }
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : {
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }
+        }
+      />
+
+      {/* Grid */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)] [background-size:52px_52px]"
+      />
+
+      {/* Ambient center light */}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.035] blur-3xl"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-16 lg:grid-cols-[0.78fr_1.22fr]">
+          {/* LEFT CONTENT */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: shouldReduceMotion ? 0 : -36,
+              y: shouldReduceMotion ? 0 : 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+              y: 0,
+            }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{
+              duration: shouldReduceMotion ? 0.01 : 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-3 py-1.5">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" />
+              <span className="text-[10px] font-black uppercase tracking-[0.28em] text-cyan-300">
+                Motion-led technology
+              </span>
+            </div>
+
+            <h2 className="mt-5 max-w-xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+              Technology should feel alive.
+            </h2>
+
+            <p className="mt-5 max-w-xl text-base leading-8 text-slate-400 sm:text-lg">
+              We are bringing more personality, depth, and movement into the
+              TAGITStore experience—while keeping the product story clear and
+              business-focused.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              {[
+                "2D + 3D depth",
+                "Scroll storytelling",
+                "Micro-interactions",
+                "Fast by design",
+              ].map((item, index) => (
+                <motion.span
+                  key={item}
+                  initial={{
+                    opacity: 0,
+                    y: shouldReduceMotion ? 0 : 10,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0.01 : 0.45,
+                    delay: shouldReduceMotion ? 0 : index * 0.08,
+                  }}
+                  className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-xs font-bold text-slate-300 backdrop-blur-md"
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+
+            {/* Small visual line */}
+            <motion.div
+              initial={{ width: 0, opacity: 0 }}
+              whileInView={{
+                width: "180px",
+                opacity: 1,
+              }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{
+                duration: shouldReduceMotion ? 0.01 : 0.9,
+                delay: shouldReduceMotion ? 0 : 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="mt-10 h-px bg-gradient-to-r from-cyan-400/70 via-indigo-400/40 to-transparent"
+            />
+          </motion.div>
+
+          {/* RIGHT 3D VISUAL */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: shouldReduceMotion ? 1 : 0.9,
+              rotateY: shouldReduceMotion ? 0 : 12,
+            }}
+            whileInView={{
+              opacity: 1,
+              scale: 1,
+              rotateY: 0,
+            }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{
+              duration: shouldReduceMotion ? 0.01 : 1,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="relative mx-auto h-[500px] w-full max-w-2xl"
+            style={{
+              perspective: "1600px",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {/* Outer orbit */}
+            <motion.div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/15"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      rotate: 360,
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: 28,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }
+              }
+            >
+              <div className="absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.9)]" />
+            </motion.div>
+
+            {/* Middle orbit */}
+            <motion.div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-[275px] w-[275px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-400/20"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      rotate: -360,
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: 20,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }
+              }
+            >
+              <div className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-indigo-300 shadow-[0_0_18px_rgba(129,140,248,0.9)]" />
+            </motion.div>
+
+            {/* Inner orbit */}
+            <motion.div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-[210px] w-[210px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/10"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      rotate: 360,
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: 14,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }
+              }
+            />
+
+            {/* Core glow */}
+            <motion.div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-3xl"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      scale: [1, 1.18, 1],
+                      opacity: [0.35, 0.65, 0.35],
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }
+              }
+            />
+
+            {/* Main glass panel */}
+            <motion.div
+              className="absolute left-1/2 top-1/2 h-[230px] w-[230px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[2.75rem] border border-white/10 bg-slate-900/90 shadow-[0_35px_120px_rgba(34,211,238,0.16)] backdrop-blur-xl sm:h-[255px] sm:w-[255px]"
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      scale: 1.035,
+                      rotateX: 4,
+                      rotateY: -4,
+                    }
+              }
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              {/* Inner gradient */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(99,102,241,0.28),transparent_38%),radial-gradient(circle_at_70%_70%,rgba(34,211,238,0.15),transparent_42%)]" />
+
+              {/* Animated core */}
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/30 bg-cyan-300/[0.08] shadow-[0_0_60px_rgba(34,211,238,0.16)]"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 90, 180, 270, 360],
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
+              />
+
+              {/* Core lines */}
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-300/15"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        rotate: -360,
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 11,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }
+                }
+              />
+
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/10"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        rotate: 360,
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 17,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }
+                }
+              />
+
+              {/* Tiny data points */}
+              <motion.div
+                className="absolute left-8 top-10 h-2 w-2 rounded-full bg-cyan-300"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        y: [0, -8, 0],
+                        opacity: [0.35, 1, 0.35],
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 3.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
+              />
+
+              <motion.div
+                className="absolute bottom-12 right-8 h-1.5 w-1.5 rounded-full bg-indigo-300"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        y: [0, 10, 0],
+                        opacity: [0.3, 1, 0.3],
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
+              />
+
+              {/* Bottom information */}
+              <div className="absolute inset-x-5 bottom-5 rounded-2xl border border-white/10 bg-black/30 p-3 backdrop-blur-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.22em] text-cyan-300">
+                      TAGITStore
+                    </p>
+                    <p className="mt-1 text-sm font-bold text-white">
+                      One system. Many workflows.
+                    </p>
+                  </div>
+
+                  <div className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,0.85)]" />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Floating cards */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: shouldReduceMotion ? 0.01 : 0.8,
+                delay: shouldReduceMotion ? 0 : 0.25,
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              {cards.map((card, index) => {
+                const Icon = card.icon;
+
+                return (
+                  <motion.div
+                    key={card.title}
+                    className={`absolute ${card.className} w-[220px] rounded-3xl border border-white/10 bg-white/[0.055] p-5 shadow-2xl backdrop-blur-xl`}
+                    initial={{
+                      opacity: 0,
+                      y: shouldReduceMotion ? 0 : 24,
+                      scale: shouldReduceMotion ? 1 : 0.95,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    viewport={{
+                      once: true,
+                      amount: 0.2,
+                    }}
+                    animate={
+                      shouldReduceMotion
+                        ? undefined
+                        : {
+                            y: [0, index % 2 === 0 ? -9 : 9, 0],
+                            rotateZ: [
+                              0,
+                              index % 2 === 0 ? 0.6 : -0.6,
+                              0,
+                            ],
+                          }
+                    }
+                    transition={{
+                      opacity: {
+                        duration: 0.55,
+                        delay: index * 0.1,
+                      },
+                      y: {
+                        duration: 5 + index,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      },
+                      rotateZ: {
+                        duration: 5 + index,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      },
+                    }}
+                    whileHover={
+                      shouldReduceMotion
+                        ? undefined
+                        : {
+                            y: -12,
+                            scale: 1.04,
+                            rotateZ: 0,
+                          }
+                    }
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-cyan-300">
+                        <Icon className="h-5 w-5" />
+                      </div>
+
+                      <div>
+                        <p className="text-base font-black text-white">
+                          {card.title}
+                        </p>
+                        <div className="mt-1 h-1 w-8 rounded-full bg-cyan-300/50" />
+                      </div>
+                    </div>
+
+                    <p className="mt-4 text-xs leading-6 text-slate-400">
+                      {card.text}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+
+            {/* Decorative particles */}
+            {!shouldReduceMotion && (
+              <>
+                <motion.div
+                  className="absolute left-[28%] top-[18%] h-1.5 w-1.5 rounded-full bg-cyan-300"
+                  animate={{
+                    y: [0, -14, 0],
+                    opacity: [0.25, 1, 0.25],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                <motion.div
+                  className="absolute right-[24%] top-[30%] h-1 w-1 rounded-full bg-indigo-300"
+                  animate={{
+                    y: [0, 12, 0],
+                    opacity: [0.2, 0.9, 0.2],
+                  }}
+                  transition={{
+                    duration: 4.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                <motion.div
+                  className="absolute bottom-[20%] left-[38%] h-1 w-1 rounded-full bg-cyan-200"
+                  animate={{
+                    x: [0, 10, 0],
+                    opacity: [0.2, 1, 0.2],
+                  }}
+                  transition={{
+                    duration: 3.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </>
+            )}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 /* =========================================================
@@ -802,7 +1429,7 @@ function Footer() {
 
           <p>
 
-            © {new Date().getFullYear()} TAGITStore.
+            Â© {new Date().getFullYear()} TAGITStore.
 
             All rights reserved.
 
@@ -908,341 +1535,518 @@ function HomePage() {
     <>
 
       {/* HERO */}
+      <motion.section
+        ref={heroRef}
+        className="relative isolate overflow-hidden bg-white"
+      >
+        {/* Cinematic background */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <div className="absolute left-[-12%] top-[-18%] h-[32rem] w-[32rem] rounded-full bg-indigo-200/35 blur-[110px]" />
+          <div className="absolute right-[-10%] top-[2%] h-[30rem] w-[30rem] rounded-full bg-cyan-200/30 blur-[110px]" />
+          <div className="absolute bottom-[-20%] left-[35%] h-[24rem] w-[24rem] rounded-full bg-violet-200/20 blur-[100px]" />
 
-      <motion.section ref={heroRef} className="relative overflow-hidden bg-white">
+          <div
+            className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-300/60 to-transparent"
+          />
 
-        <div className="absolute left-[-10%] top-[-15%] h-96 w-96 rounded-full bg-indigo-100 blur-3xl" />
+          <div
+            className="absolute inset-0 opacity-[0.045]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(15,23,42,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.6) 1px, transparent 1px)",
+              backgroundSize: "44px 44px",
+            }}
+          />
+        </div>
 
-        <div className="absolute right-[-10%] top-[15%] h-96 w-96 rounded-full bg-cyan-100 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-6 sm:pb-24 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-20">
+          <div className="grid items-center gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
 
-
-
-        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-16 sm:px-6 sm:pt-20 lg:px-8 lg:pb-28 lg:pt-24">
-
-
-
-          <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
-
-
-
-            {/* LEFT */}
-
+            {/* LEFT — STORY */}
             <motion.div
               variants={reveal}
               initial="hidden"
               animate="visible"
-              transition={{ ...revealTransition, delay: 0.1 }}
+              transition={{ ...revealTransition, delay: 0.05 }}
+              className="relative z-10"
             >
-
-
-
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-bold text-indigo-600">
-
+              <motion.div
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-indigo-600 shadow-sm backdrop-blur"
+              >
                 <Rocket className="h-4 w-4" />
-
                 Smart solutions for modern businesses
+              </motion.div>
 
+              <div className="relative mt-7 max-w-4xl">
+                <div
+                  aria-hidden="true"
+                  className="absolute -left-6 top-10 h-28 w-28 rounded-full bg-indigo-400/10 blur-3xl sm:-left-10"
+                />
+
+                <motion.h1
+                  initial={{
+                    opacity: 0,
+                    y: shouldReduceMotion ? 0 : 28,
+                  }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.16,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="relative max-w-[680px] text-[3rem] font-black leading-[1] tracking-[-0.045em] text-slate-950 sm:text-6xl lg:text-[3.6rem] xl:text-[4rem]"
+                >
+                  Elevating Your
+                  <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
+                    Business
+                  </span>
+                 <span className="mt-2 block text-slate-900">
+  with Innovative Solutions
+</span>
+                </motion.h1>
               </div>
 
+              <motion.p
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.3,
+                  ease: "easeOut",
+                }}
+                className="mt-7 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg"
+              >
+                TAGITStore builds IT solutions for MSMEs that make running
+                your business easier, with smart tools for every need.
+              </motion.p>
 
-
-              <h1 className="mt-6 text-5xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-
-                Elevating Your
-
-                <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
-
-                  Business
-
-                </span>
-
-                <span className="block text-slate-900">
-
-                  with Innovative Solutions
-
-                </span>
-
-              </h1>
-
-
-
-              <p className="mt-7 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-
-                TAGITStore builds IT solutions for MSMEs
-
-                that make running your business easier,
-
-                with smart tools for every need.
-
-              </p>
-
-
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-
-
-
+              <motion.div
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.65,
+                  delay: 0.4,
+                  ease: "easeOut",
+                }}
+                className="mt-8 flex flex-col gap-3 sm:flex-row"
+              >
                 <Link
-
                   to="/product"
-
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-slate-800"
-
+                  className="premium-button group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]"
                 >
-
                   Explore Product
-
-                  <ArrowRight className="h-4 w-4" />
-
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-
-
 
                 <Link
-
                   to="/contact"
-
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
-
+                  className="premium-button inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-bold text-slate-800 backdrop-blur"
                 >
-
                   Contact Us
-
                 </Link>
+              </motion.div>
 
-
-
-              </div>
-
-
-
-              {/* TRUST POINTS */}
-
-              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
-
-
-
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.55 }}
+                className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500"
+              >
                 <div className="flex items-center gap-2">
-
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-
                   Secure solutions
-
                 </div>
 
-
-
                 <div className="flex items-center gap-2">
-
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-
                   Cloud-based
-
                 </div>
-
-
 
                 <div className="flex items-center gap-2">
-
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-
                   Business focused
-
                 </div>
+              </motion.div>
 
-
-
-              </div>
-
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.65,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="mt-10 h-px origin-left max-w-md bg-gradient-to-r from-indigo-300 via-violet-200 to-transparent"
+              />
             </motion.div>
 
-
-
-            {/* RIGHT VISUAL */}
-
+            {/* RIGHT — CINEMATIC VISUAL */}
             <motion.div
               className="relative"
               style={{ y: visualY }}
-              initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.96, y: shouldReduceMotion ? 0 : 20 }}
+              initial={{
+                opacity: 0,
+                scale: shouldReduceMotion ? 1 : 0.94,
+                y: shouldReduceMotion ? 0 : 22,
+              }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              transition={{
+                duration: 0.95,
+                delay: 0.18,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
+              {/* Glow field */}
+              <div
+                aria-hidden="true"
+                className="absolute -inset-10 rounded-[4rem] bg-gradient-to-r from-indigo-400/15 via-violet-400/15 to-cyan-400/15 blur-3xl"
+              />
 
+              {/* Outer orbit */}
+              <motion.div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[31rem] w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-500/10"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : { rotate: [0, 360] }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 26,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }
+                }
+              />
 
+              <motion.div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[23rem] w-[23rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-500/10"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : { rotate: [360, 0] }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }
+                }
+              />
 
-              <div className="absolute -inset-6 rounded-[3rem] bg-gradient-to-r from-indigo-100 via-violet-100 to-cyan-100 blur-2xl" />
+              {/* Main stage */}
+              <motion.div
+                whileHover={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        rotateX: 2,
+                        rotateY: -2,
+                        y: -4,
+                      }
+                }
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="premium-card relative mx-auto max-w-[34rem] rounded-[2.5rem] border border-white/10 bg-slate-950 p-3 shadow-[0_35px_100px_rgba(15,23,42,0.28)]"
+                style={{ perspective: 1200 }}
+              >
+                <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6 sm:p-8">
 
+                  {/* Ambient light */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-indigo-500/20 blur-3xl"
+                  />
 
-
-              <div className="relative rounded-[2rem] border border-slate-200 bg-slate-950 p-5 shadow-2xl">
-
-
-
-                <div className="rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 p-6 sm:p-8">
-
-
-
-                  <div className="flex items-center justify-between">
-
+                  {/* Header */}
+                  <div className="relative flex items-center justify-between">
                     <div className="flex gap-2">
-
                       <span className="h-3 w-3 rounded-full bg-red-400" />
-
                       <span className="h-3 w-3 rounded-full bg-yellow-400" />
-
                       <span className="h-3 w-3 rounded-full bg-green-400" />
-
                     </div>
 
-
-
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold text-slate-400">
-
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-400">
                       TAGITStore
-
                     </span>
-
                   </div>
 
-
-
-                  <div className="mt-8">
-
-                    <p className="text-xs uppercase tracking-[0.2em] text-cyan-400">
-
+                  {/* Main copy */}
+                  <div className="relative mt-8">
+                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-400">
                       Business Technology
-
                     </p>
 
-
-
-                    <h2 className="mt-3 text-3xl font-black text-white sm:text-4xl">
-
+                    <h2 className="mt-3 text-3xl font-black leading-tight text-white sm:text-4xl">
                       One platform.
-
-                      <span className="block text-cyan-400">
-
+                      <span className="block bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">
                         Endless solutions.
-
                       </span>
-
                     </h2>
 
-
-
-                    <p className="mt-4 text-sm leading-7 text-slate-400">
-
-                      Technology designed to simplify
-
-                      everyday business operations.
-
+                    <p className="mt-4 max-w-md text-sm leading-7 text-slate-400">
+                      Technology designed to simplify everyday business
+                      operations.
                     </p>
-
                   </div>
 
+                  {/* Animated visual core */}
+                  <div className="relative mx-auto mt-8 flex h-56 items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-black/20">
+                    <motion.div
+                      aria-hidden="true"
+                      className="absolute h-40 w-40 rounded-full border border-cyan-300/20"
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              scale: [1, 1.08, 1],
+                              rotate: [0, 90, 180, 270, 360],
+                            }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              duration: 10,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                      }
+                    />
 
+                    <motion.div
+                      aria-hidden="true"
+                      className="absolute h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-400/30 blur-xl"
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              scale: [1, 1.35, 1],
+                            }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              duration: 4,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                      }
+                    />
 
-                  <div className="mt-8 grid grid-cols-2 gap-3">
+                    <motion.div
+                      className="relative flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-white/5 shadow-[0_0_60px_rgba(34,211,238,0.18)] backdrop-blur-md"
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              y: [0, -8, 0],
+                            }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              duration: 4.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                      }
+                    >
+                      <div className="text-center">
+                        <div className="text-xs font-black uppercase tracking-[0.2em] text-cyan-300">
+                          TAGIT
+                        </div>
+                        <div className="mt-1 text-[10px] font-semibold text-slate-400">
+                          CONNECTED
+                        </div>
+                      </div>
+                    </motion.div>
 
-
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-
-                      <Package className="h-5 w-5 text-cyan-400" />
-
-                      <p className="mt-3 text-sm font-bold text-white">
-
-                        Smart Tools
-
+                    <motion.div
+                      className="absolute left-5 top-6 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md"
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              y: [0, -6, 0],
+                            }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              duration: 3.6,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                      }
+                    >
+                      <p className="text-[9px] uppercase tracking-[0.18em] text-slate-500">
+                        Workflow
                       </p>
-
-                      <p className="mt-1 text-xs text-slate-500">
-
-                        Built for business
-
+                      <p className="mt-1 text-xs font-bold text-white">
+                        Simplified
                       </p>
+                    </motion.div>
 
+                    <motion.div
+                      className="absolute bottom-6 right-5 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-right backdrop-blur-md"
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              y: [0, 6, 0],
+                            }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              duration: 4.2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }
+                      }
+                    >
+                      <p className="text-[9px] uppercase tracking-[0.18em] text-slate-500">
+                        Access
+                      </p>
+                      <p className="mt-1 text-xs font-bold text-cyan-300">
+                        Anywhere
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  {/* Feature rail */}
+                  <div className="relative mt-6 grid grid-cols-3 gap-2">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
+                        Security
+                      </p>
+                      <p className="mt-1 text-xs font-bold text-white">
+                        Protected
+                      </p>
                     </div>
 
-
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-
-                      <Cloud className="h-5 w-5 text-indigo-400" />
-
-                      <p className="mt-3 text-sm font-bold text-white">
-
-                        Cloud Access
-
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
+                        Cloud
                       </p>
-
-                      <p className="mt-1 text-xs text-slate-500">
-
-                        Access anywhere
-
+                      <p className="mt-1 text-xs font-bold text-white">
+                        Connected
                       </p>
-
                     </div>
 
-
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-
-                      <ShieldCheck className="h-5 w-5 text-emerald-400" />
-
-                      <p className="mt-3 text-sm font-bold text-white">
-
-                        Secure
-
-                      </p>
-
-                      <p className="mt-1 text-xs text-slate-500">
-
-                        Protection focused
-
-                      </p>
-
-                    </div>
-
-
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-
-                      <BarChart3 className="h-5 w-5 text-violet-400" />
-
-                      <p className="mt-3 text-sm font-bold text-white">
-
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
                         Insights
-
                       </p>
-
-                      <p className="mt-1 text-xs text-slate-500">
-
-                        Better decisions
-
+                      <p className="mt-1 text-xs font-bold text-white">
+                        Smarter
                       </p>
-
                     </div>
-
-
-
                   </div>
-
-
 
                 </div>
+              </motion.div>
 
-              </div>
+              {/* Floating labels */}
+              <motion.div
+               className="absolute -left-5 top-[8%] hidden rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-xl backdrop-blur-md sm:block"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        y: [0, -8, 0],
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 4.2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
+              >
+                <p className="text-[9px] font-black uppercase tracking-[0.18em] text-slate-400">
+                  Digital
+                </p>
+                <p className="mt-1 text-sm font-black text-slate-900">
+                  Smarter workflows
+                </p>
+              </motion.div>
 
+              <motion.div
+                className="absolute -right-3 bottom-[13%] hidden rounded-2xl border border-white/10 bg-slate-900/90 px-4 py-3 shadow-xl backdrop-blur-md sm:block"
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        y: [0, 8, 0],
+                      }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        duration: 3.8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                }
+              >
+                <p className="text-[9px] font-black uppercase tracking-[0.18em] text-cyan-400">
+                  TAGITStore
+                </p>
+                <p className="mt-1 text-sm font-black text-white">
+                  Built for growth
+                </p>
+              </motion.div>
             </motion.div>
-
-
-
           </div>
 
-        </div>
+          {/* Hero footer */}
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.75, ease: "easeOut" }}
+            className="mt-14 flex items-center justify-between gap-6 border-t border-slate-200/80 pt-6"
+          >
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-slate-400">
+              Technology • Simplicity • Scale
+            </p>
 
+            <div className="hidden h-px flex-1 bg-gradient-to-r from-slate-200 via-indigo-200 to-transparent sm:block" />
+
+            <p className="text-right text-xs font-semibold text-slate-400">
+              Designed for modern business operations
+            </p>
+          </motion.div>
+        </div>
       </motion.section>
+
+      <MotionTicker />
+      <MotionStudioSection />
 
 
 
@@ -3033,6 +3837,7 @@ function AnimatedRoutes() {
 function WebsiteLayout() {
   return (
     <div className="min-h-screen overflow-x-clip bg-white text-slate-900">
+      <ScrollProgress />
       <Navbar />
       <PremiumMotionLayer />
       <main>
