@@ -189,8 +189,8 @@ function ScrollProgress() {
   );
 }
 
+
 function MotionTicker() {
-  const shouldReduceMotion = useReducedMotion();
   const items = [
     "Automation",
     "Cloud access",
@@ -199,30 +199,63 @@ function MotionTicker() {
     "Customer focus",
     "Smart workflows",
   ];
-  const content = [...items, ...items];
 
   return (
-    <section aria-label="TAGITStore capabilities" className="relative overflow-hidden border-y border-slate-200 bg-slate-950 py-4 text-white">
+    <section
+      aria-label="TAGITStore capabilities"
+      className="relative overflow-hidden border-y border-slate-200 bg-slate-950 py-4 text-white"
+    >
+      <style>{`
+        @keyframes tagitTicker {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        .tagit-ticker-track {
+          animation: tagitTicker 18s linear infinite;
+          width: max-content;
+          will-change: transform;
+        }
+      `}</style>
+
       <div className="mx-auto flex max-w-7xl items-center gap-5 px-4 sm:px-6 lg:px-8">
-        <span className="hidden shrink-0 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-400 sm:block">In motion</span>
-        <div className="overflow-hidden">
-          <motion.div
-            className="flex min-w-max items-center gap-8"
-            animate={shouldReduceMotion ? undefined : { x: [0, -720] }}
-            transition={shouldReduceMotion ? undefined : { duration: 22, repeat: Infinity, ease: "linear" }}
-          >
-            {content.map((item, index) => (
-              <div key={`${item}-${index}`} className="flex items-center gap-8">
-                <span className="text-sm font-semibold text-slate-200">{item}</span>
-                <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+        <span className="hidden shrink-0 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-400 sm:block">
+          In motion
+        </span>
+
+        <div className="min-w-0 flex-1 overflow-hidden">
+          <div className="tagit-ticker-track flex">
+            {[0, 1].map((copy) => (
+              <div
+                key={copy}
+                aria-hidden={copy === 1}
+                className="flex shrink-0 items-center gap-8 pr-8"
+              >
+                {items.map((item, index) => (
+                  <div
+                    key={`${copy}-${item}-${index}`}
+                    className="flex shrink-0 items-center gap-8"
+                  >
+                    <span className="text-sm font-semibold text-slate-200">
+                      {item}
+                    </span>
+
+                    <Sparkles className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
+                  </div>
+                ))}
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
 function MotionStudioSection() {
   const shouldReduceMotion = useReducedMotion();
 
