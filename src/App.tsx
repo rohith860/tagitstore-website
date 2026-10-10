@@ -32,7 +32,6 @@ import {
 
   CheckCircle2,
 
-  ChevronRight,
 
   Cloud,
 
@@ -56,7 +55,6 @@ import {
 
   Phone,
 
-  Rocket,
 
   ShieldCheck,
 
@@ -1544,979 +1542,461 @@ function AnimatedCounter({ value, suffix, label }: { value: number; suffix: stri
 function HomePage() {
   const shouldReduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLElement | null>(null);
-
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-
   const visualY = useTransform(
     scrollYProgress,
     [0, 1],
-    [0, shouldReduceMotion ? 0 : -35],
+    [0, shouldReduceMotion ? 0 : -22],
   );
 
-  const reveal = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+  const rise = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 22 },
     visible: { opacity: 1, y: 0 },
   };
+  const riseTransition = {
+    duration: shouldReduceMotion ? 0.01 : 0.65,
+    ease: [0.22, 1, 0.36, 1] as const,
+  };
 
-  const revealTransition = { duration: 0.65, ease: "easeOut" as const };
+  const benefits = [
+    {
+      icon: ShieldCheck,
+      title: "Security-minded",
+      text: "Keep important business information protected with security-focused solutions.",
+    },
+    {
+      icon: Headphones,
+      title: "People-first support",
+      text: "Get guidance from a team that understands the day-to-day needs of your business.",
+    },
+    {
+      icon: Cloud,
+      title: "Connected wherever you work",
+      text: "Make it easier to access the tools and information your team depends on.",
+    },
+    {
+      icon: Zap,
+      title: "Built for practical progress",
+      text: "Focus on useful technology that helps simplify everyday work.",
+    },
+  ];
 
   return (
-
     <>
-
-      {/* HERO */}
+      {/* HERO — bold editorial headline with a custom motion graphic */}
       <motion.section
         ref={heroRef}
-        className="relative isolate overflow-hidden bg-white"
+        className="relative isolate overflow-hidden bg-[#f7f8fc]"
       >
-        {/* Cinematic background */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-        >
-          <div className="absolute left-[-12%] top-[-18%] h-[32rem] w-[32rem] rounded-full bg-indigo-200/35 blur-[110px]" />
-          <div className="absolute right-[-10%] top-[2%] h-[30rem] w-[30rem] rounded-full bg-cyan-200/30 blur-[110px]" />
-          <div className="absolute bottom-[-20%] left-[35%] h-[24rem] w-[24rem] rounded-full bg-violet-200/20 blur-[100px]" />
-
-          <div
-            className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-300/60 to-transparent"
-          />
-
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-indigo-300/25 blur-[110px]" />
+          <div className="absolute -right-28 top-16 h-[30rem] w-[30rem] rounded-full bg-cyan-200/35 blur-[110px]" />
+          <div className="absolute bottom-[-15rem] left-[38%] h-[28rem] w-[28rem] rounded-full bg-violet-200/25 blur-[110px]" />
           <div
             className="absolute inset-0 opacity-[0.045]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(15,23,42,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.6) 1px, transparent 1px)",
+                "linear-gradient(rgba(15,23,42,0.65) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.65) 1px, transparent 1px)",
               backgroundSize: "44px 44px",
             }}
           />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-6 sm:pb-24 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-20">
-          <div className="grid items-center gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
-
-            {/* LEFT — STORY */}
+        <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8 lg:pb-20 lg:pt-24">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
             <motion.div
-              variants={reveal}
+              variants={rise}
               initial="hidden"
               animate="visible"
-              transition={{ ...revealTransition, delay: 0.05 }}
+              transition={{ ...riseTransition, delay: 0.05 }}
               className="relative z-10"
             >
-              <motion.div
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-indigo-600 shadow-sm backdrop-blur"
-              >
-                <Rocket className="h-4 w-4" />
-                Smart solutions for modern businesses
-              </motion.div>
-
-              <div className="relative mt-7 max-w-4xl">
-                <div
-                  aria-hidden="true"
-                  className="absolute -left-6 top-10 h-28 w-28 rounded-full bg-indigo-400/10 blur-3xl sm:-left-10"
-                />
-
-                <motion.h1
-                  initial={{
-                    opacity: 0,
-                    y: shouldReduceMotion ? 0 : 28,
-                  }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.16,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="relative max-w-[680px] text-[3rem] font-black leading-[1] tracking-[-0.045em] text-slate-950 sm:text-6xl lg:text-[3.6rem] xl:text-[4rem]"
-                >
-                  Elevating Your
-                  <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
-                    Business
-                  </span>
-                 <span className="mt-2 block text-slate-900">
-  with Innovative Solutions
-</span>
-                </motion.h1>
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/80 bg-white/80 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur sm:text-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500" />
+                </span>
+                Smart solutions for growing businesses
               </div>
 
-              <motion.p
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.3,
-                  ease: "easeOut",
-                }}
-                className="mt-7 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg"
-              >
-                TAGITStore builds IT solutions for MSMEs that make running
-                your business easier, with smart tools for every need.
-              </motion.p>
+              <h1 className="mt-7 max-w-3xl text-[3.35rem] font-black leading-[0.98] tracking-[-0.065em] text-slate-950 sm:text-7xl lg:text-[5.25rem]">
+                Make room for
+                <span className="mt-1 block bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text pb-2 text-transparent">
+                  better business.
+                </span>
+              </h1>
 
-              <motion.div
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.65,
-                  delay: 0.4,
-                  ease: "easeOut",
-                }}
-                className="mt-8 flex flex-col gap-3 sm:flex-row"
-              >
+              <p className="mt-7 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
+                TAGITStore builds IT solutions for MSMEs that make running your
+                business easier—with smart tools for everyday work, connected
+                teams, and room to grow.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   to="/product"
-                  className="premium-button group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-[0_18px_50px_rgba(15,23,42,0.2)]"
+                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 py-4 text-sm font-bold text-white shadow-[0_18px_45px_rgba(15,23,42,0.2)] transition duration-300 hover:-translate-y-1 hover:bg-indigo-700 hover:shadow-[0_20px_55px_rgba(79,70,229,0.28)]"
                 >
-                  Explore Product
+                  Explore solutions
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-
                 <Link
                   to="/contact"
-                  className="premium-button inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-bold text-slate-800 backdrop-blur"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-6 py-4 text-sm font-bold text-slate-800 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:bg-white"
                 >
-                  Contact Us
+                  Let’s talk
+                  <MessageCircle className="h-4 w-4 text-indigo-600" />
                 </Link>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.55 }}
-                className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500"
-              >
-                <div className="flex items-center gap-2">
+              <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-slate-500">
+                <span className="inline-flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                  Secure solutions
-                </div>
-
-                <div className="flex items-center gap-2">
+                  Security-focused
+                </span>
+                <span className="inline-flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                  Cloud-based
-                </div>
-
-                <div className="flex items-center gap-2">
+                  Cloud-connected
+                </span>
+                <span className="inline-flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                  Business focused
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scaleX: 0 }}
-                animate={{ opacity: 1, scaleX: 1 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.65,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="mt-10 h-px origin-left max-w-md bg-gradient-to-r from-indigo-300 via-violet-200 to-transparent"
-              />
+                  Business-first
+                </span>
+              </div>
             </motion.div>
 
-            {/* RIGHT — CINEMATIC VISUAL */}
+            {/* Custom-built visual: connected workflows, not a stock image */}
             <motion.div
-              className="relative"
+              className="relative mx-auto w-full max-w-[35rem]"
               style={{ y: visualY }}
-              initial={{
-                opacity: 0,
-                scale: shouldReduceMotion ? 1 : 0.94,
-                y: shouldReduceMotion ? 0 : 22,
-              }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: 0.95,
-                delay: 0.18,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: shouldReduceMotion ? 0.01 : 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Glow field */}
-              <div
-                aria-hidden="true"
-                className="absolute -inset-10 rounded-[4rem] bg-gradient-to-r from-indigo-400/15 via-violet-400/15 to-cyan-400/15 blur-3xl"
-              />
-
-              {/* Outer orbit */}
+              <div aria-hidden="true" className="absolute inset-5 rounded-[3rem] bg-gradient-to-br from-indigo-400/25 via-violet-300/20 to-cyan-300/25 blur-3xl" />
               <motion.div
                 aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[31rem] w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-500/10"
-                animate={
-                  shouldReduceMotion
-                    ? undefined
-                    : { rotate: [0, 360] }
-                }
-                transition={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        duration: 26,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }
-                }
-              />
-
-              <motion.div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[23rem] w-[23rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-500/10"
-                animate={
-                  shouldReduceMotion
-                    ? undefined
-                    : { rotate: [360, 0] }
-                }
-                transition={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }
-                }
-              />
-
-              {/* Main stage */}
-              <motion.div
-                whileHover={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        rotateX: 2,
-                        rotateY: -2,
-                        y: -4,
-                      }
-                }
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="premium-card relative mx-auto max-w-[34rem] rounded-[2.5rem] border border-white/10 bg-slate-950 p-3 shadow-[0_35px_100px_rgba(15,23,42,0.28)]"
-                style={{ perspective: 1200 }}
+                className="absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-400/20"
+                animate={shouldReduceMotion ? undefined : { rotate: 360 }}
+                transition={shouldReduceMotion ? undefined : { duration: 36, repeat: Infinity, ease: "linear" }}
               >
-                <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6 sm:p-8">
+                <span className="absolute left-[15%] top-[16%] h-2.5 w-2.5 rounded-full bg-indigo-500 shadow-[0_0_22px_rgba(99,102,241,0.8)]" />
+              </motion.div>
+              <motion.div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-500/20"
+                animate={shouldReduceMotion ? undefined : { rotate: -360 }}
+                transition={shouldReduceMotion ? undefined : { duration: 28, repeat: Infinity, ease: "linear" }}
+              >
+                <span className="absolute bottom-[12%] right-[12%] h-2 w-2 rounded-full bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.8)]" />
+              </motion.div>
 
-                  {/* Ambient light */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-indigo-500/20 blur-3xl"
-                  />
-
-                  {/* Header */}
-                  <div className="relative flex items-center justify-between">
-                    <div className="flex gap-2">
-                      <span className="h-3 w-3 rounded-full bg-red-400" />
-                      <span className="h-3 w-3 rounded-full bg-yellow-400" />
-                      <span className="h-3 w-3 rounded-full bg-green-400" />
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -5, rotateX: 2, rotateY: -2 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="relative z-10 overflow-hidden rounded-[2rem] border border-white/15 bg-[#0b1020] p-4 shadow-[0_35px_100px_rgba(15,23,42,0.28)] sm:rounded-[2.5rem] sm:p-5"
+              >
+                <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-[#121a32] via-[#111a2c] to-[#0d1724] p-5 sm:rounded-[2rem] sm:p-7">
+                  <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-lg shadow-indigo-500/20">
+                        <Sparkles className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-black tracking-tight text-white">TAGITStore</p>
+                        <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Connected solutions</p>
+                      </div>
                     </div>
-
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold tracking-[0.15em] text-slate-400">
-                      TAGITStore
+                    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-[10px] font-bold text-emerald-300">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                      In sync
                     </span>
                   </div>
 
-                  {/* Main copy */}
-                  <div className="relative mt-8">
-                    <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-400">
-                      Business Technology
-                    </p>
-
-                    <h2 className="mt-3 text-3xl font-black leading-tight text-white sm:text-4xl">
-                      One platform.
-                      <span className="block bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">
-                        Endless solutions.
-                      </span>
+                  <div className="mt-6">
+                    <p className="text-[10px] font-black uppercase tracking-[0.25em] text-cyan-300">The work behind the work</p>
+                    <h2 className="mt-3 max-w-sm text-3xl font-black leading-tight tracking-[-0.04em] text-white sm:text-4xl">
+                      Less friction.
+                      <span className="block text-slate-400">More forward.</span>
                     </h2>
-
-                    <p className="mt-4 max-w-md text-sm leading-7 text-slate-400">
-                      Technology designed to simplify everyday business
-                      operations.
+                    <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">
+                      Bring everyday business tasks into a clearer, more connected flow.
                     </p>
                   </div>
 
-                  {/* Animated visual core */}
-                  <div className="relative mx-auto mt-8 flex h-56 items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-black/20">
-                    <motion.div
-                      aria-hidden="true"
-                      className="absolute h-40 w-40 rounded-full border border-cyan-300/20"
-                      animate={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              scale: [1, 1.08, 1],
-                              rotate: [0, 90, 180, 270, 360],
-                            }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              duration: 10,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }
-                      }
-                    />
-
-                    <motion.div
-                      aria-hidden="true"
-                      className="absolute h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500/30 to-cyan-400/30 blur-xl"
-                      animate={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              scale: [1, 1.35, 1],
-                            }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              duration: 4,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }
-                      }
-                    />
-
-                    <motion.div
-                      className="relative flex h-24 w-24 items-center justify-center rounded-full border border-white/15 bg-white/5 shadow-[0_0_60px_rgba(34,211,238,0.18)] backdrop-blur-md"
-                      animate={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              y: [0, -8, 0],
-                            }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              duration: 4.5,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }
-                      }
-                    >
-                      <div className="text-center">
-                        <div className="text-xs font-black uppercase tracking-[0.2em] text-cyan-300">
-                          TAGIT
-                        </div>
-                        <div className="mt-1 text-[10px] font-semibold text-slate-400">
-                          CONNECTED
+                  <div className="relative mt-7 rounded-[1.5rem] border border-white/10 bg-[#080d18]/70 p-4 sm:p-5">
+                    <div aria-hidden="true" className="absolute left-9 right-9 top-[3.15rem] hidden h-px bg-gradient-to-r from-indigo-400/70 via-cyan-300/70 to-emerald-300/70 sm:block" />
+                    <div className="relative grid grid-cols-3 gap-2 sm:gap-3">
+                      {[
+                        { icon: Layers3, label: "Organize", tone: "text-indigo-300", surface: "bg-indigo-400/10" },
+                        { icon: Cloud, label: "Connect", tone: "text-cyan-300", surface: "bg-cyan-400/10" },
+                        { icon: ShieldCheck, label: "Protect", tone: "text-emerald-300", surface: "bg-emerald-400/10" },
+                      ].map((item, index) => {
+                        const Icon = item.icon;
+                        return (
+                          <motion.div
+                            key={item.label}
+                            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, delay: 0.35 + index * 0.12 }}
+                            className="flex min-w-0 flex-col items-center rounded-2xl border border-white/10 bg-white/[0.035] px-2 py-4 text-center"
+                          >
+                            <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${item.surface} ${item.tone}`}>
+                              <Icon className="h-5 w-5" />
+                            </div>
+                            <span className="mt-3 text-[11px] font-bold text-slate-200 sm:text-xs">{item.label}</span>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.035] px-3 py-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-cyan-300"><Zap className="h-4 w-4" /></div>
+                        <div>
+                          <p className="text-xs font-bold text-white">A smoother workflow</p>
+                          <p className="mt-0.5 text-[10px] text-slate-500">Designed around your business</p>
                         </div>
                       </div>
-                    </motion.div>
-
-                    <motion.div
-                      className="absolute left-5 top-6 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md"
-                      animate={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              y: [0, -6, 0],
-                            }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              duration: 3.6,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }
-                      }
-                    >
-                      <p className="text-[9px] uppercase tracking-[0.18em] text-slate-500">
-                        Workflow
-                      </p>
-                      <p className="mt-1 text-xs font-bold text-white">
-                        Simplified
-                      </p>
-                    </motion.div>
-
-                    <motion.div
-                      className="absolute bottom-6 right-5 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-right backdrop-blur-md"
-                      animate={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              y: [0, 6, 0],
-                            }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              duration: 4.2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }
-                      }
-                    >
-                      <p className="text-[9px] uppercase tracking-[0.18em] text-slate-500">
-                        Access
-                      </p>
-                      <p className="mt-1 text-xs font-bold text-cyan-300">
-                        Anywhere
-                      </p>
-                    </motion.div>
-                  </div>
-
-                  {/* Feature rail */}
-                  <div className="relative mt-6 grid grid-cols-3 gap-2">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                        Security
-                      </p>
-                      <p className="mt-1 text-xs font-bold text-white">
-                        Protected
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                        Cloud
-                      </p>
-                      <p className="mt-1 text-xs font-bold text-white">
-                        Connected
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                        Insights
-                      </p>
-                      <p className="mt-1 text-xs font-bold text-white">
-                        Smarter
-                      </p>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-cyan-300" />
                     </div>
                   </div>
-
                 </div>
               </motion.div>
 
-              {/* Floating labels */}
               <motion.div
-               className="absolute -left-5 top-[8%] hidden rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-xl backdrop-blur-md sm:block"
-                animate={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        y: [0, -8, 0],
-                      }
-                }
-                transition={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        duration: 4.2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }
-                }
+                animate={shouldReduceMotion ? undefined : { y: [0, -8, 0] }}
+                transition={shouldReduceMotion ? undefined : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -left-3 top-[16%] z-20 hidden items-center gap-3 rounded-2xl border border-white/80 bg-white/95 px-4 py-3 shadow-xl shadow-slate-900/10 backdrop-blur sm:flex lg:-left-7"
               >
-                <p className="text-[9px] font-black uppercase tracking-[0.18em] text-slate-400">
-                  Digital
-                </p>
-                <p className="mt-1 text-sm font-black text-slate-900">
-                  Smarter workflows
-                </p>
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600"><Layers3 className="h-4 w-4" /></div>
+                <div><p className="text-xs font-black text-slate-900">Simpler workflows</p><p className="mt-0.5 text-[10px] text-slate-500">Less repetitive work</p></div>
               </motion.div>
-
               <motion.div
-                className="absolute -right-3 bottom-[13%] hidden rounded-2xl border border-white/10 bg-slate-900/90 px-4 py-3 shadow-xl backdrop-blur-md sm:block"
-                animate={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        y: [0, 8, 0],
-                      }
-                }
-                transition={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        duration: 3.8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }
-                }
+                animate={shouldReduceMotion ? undefined : { y: [0, 7, 0] }}
+                transition={shouldReduceMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -right-2 bottom-[15%] z-20 hidden items-center gap-3 rounded-2xl border border-white/80 bg-white/95 px-4 py-3 shadow-xl shadow-slate-900/10 backdrop-blur sm:flex lg:-right-5"
               >
-                <p className="text-[9px] font-black uppercase tracking-[0.18em] text-cyan-400">
-                  TAGITStore
-                </p>
-                <p className="mt-1 text-sm font-black text-white">
-                  Built for growth
-                </p>
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600"><Lock className="h-4 w-4" /></div>
+                <div><p className="text-xs font-black text-slate-900">Security in mind</p><p className="mt-0.5 text-[10px] text-slate-500">Technology you can trust</p></div>
               </motion.div>
             </motion.div>
           </div>
 
-          {/* Hero footer */}
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.75, ease: "easeOut" }}
-            className="mt-14 flex items-center justify-between gap-6 border-t border-slate-200/80 pt-6"
-          >
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-slate-400">
-              Technology • Simplicity • Scale
-            </p>
-
+          <div className="mt-16 flex flex-col gap-4 border-t border-slate-200/80 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-slate-400">Technology · Simplicity · Scale</p>
             <div className="hidden h-px flex-1 bg-gradient-to-r from-slate-200 via-indigo-200 to-transparent sm:block" />
-
-            <p className="text-right text-xs font-semibold text-slate-400">
-              Designed for modern business operations
-            </p>
-          </motion.div>
+            <p className="text-xs font-semibold text-slate-400">Thoughtful technology for everyday business</p>
+          </div>
         </div>
       </motion.section>
 
       <MotionTicker />
+
+      {/* SOLUTION SHOWCASE — varied bento cards instead of identical tiles */}
+      <section className="relative overflow-hidden bg-white py-20 sm:py-28">
+        <div aria-hidden="true" className="pointer-events-none absolute right-[-10rem] top-20 h-80 w-80 rounded-full bg-violet-100/70 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={rise}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={riseTransition}
+            className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
+            <div className="max-w-2xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.24em] text-indigo-600">One clear direction</p>
+              <h2 className="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.05em] text-slate-950 sm:text-5xl lg:text-6xl">
+                Better tools for the
+                <span className="block text-slate-400">way you work.</span>
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-slate-500 sm:text-base">
+              Thoughtful business technology should make the complex feel clear. Explore the areas where TAGITStore can help.
+            </p>
+          </motion.div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-12">
+            <motion.article
+              whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="group relative min-h-[330px] overflow-hidden rounded-[2rem] bg-[#0b1020] p-7 text-white md:col-span-7 md:p-9"
+            >
+              <div aria-hidden="true" className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-indigo-500/25 blur-3xl transition duration-500 group-hover:bg-indigo-400/35" />
+              <div aria-hidden="true" className="absolute bottom-0 right-0 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
+              <div className="relative grid h-full gap-8 sm:grid-cols-[0.9fr_1.1fr] sm:items-center">
+                <div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.08] text-cyan-300"><Layers3 className="h-5 w-5" /></div>
+                  <p className="mt-7 text-[10px] font-black uppercase tracking-[0.22em] text-cyan-300">01 / Work smarter</p>
+                  <h3 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">Business automation</h3>
+                  <p className="mt-3 max-w-sm text-sm leading-7 text-slate-400">Reduce repetitive steps and give everyday workflows a clearer path forward.</p>
+                  <Link to="/product" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-white transition-colors hover:text-cyan-300">Explore solutions <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+                </div>
+                <div className="relative mx-auto w-full max-w-xs rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4 shadow-2xl backdrop-blur">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-3"><span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Workflow map</span><span className="h-2 w-2 rounded-full bg-emerald-400" /></div>
+                  <div className="mt-4 space-y-3">
+                    {[{ n: "01", name: "Capture the task", icon: MessageCircle, color: "text-violet-300", bg: "bg-violet-400/10" }, { n: "02", name: "Connect the steps", icon: Layers3, color: "text-cyan-300", bg: "bg-cyan-400/10" }, { n: "03", name: "Move work forward", icon: ArrowRight, color: "text-emerald-300", bg: "bg-emerald-400/10" }].map((step, index) => {
+                      const Icon = step.icon;
+                      return <motion.div key={step.n} initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.35, delay: index * 0.1 }} className="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-[#11182a] p-3"><span className="text-[10px] font-black text-slate-600">{step.n}</span><div className={`flex h-9 w-9 items-center justify-center rounded-xl ${step.bg} ${step.color}`}><Icon className="h-4 w-4" /></div><span className="text-xs font-bold text-slate-200">{step.name}</span></motion.div>;
+                    })}
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+
+            <motion.article
+              whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="relative min-h-[330px] overflow-hidden rounded-[2rem] border border-cyan-100 bg-[#effcff] p-7 md:col-span-5 md:p-8"
+            >
+              <div aria-hidden="true" className="absolute -right-9 -top-7 h-48 w-48 rounded-full border border-cyan-300/50" />
+              <div aria-hidden="true" className="absolute -right-1 top-1 h-32 w-32 rounded-full border border-cyan-300/45" />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-cyan-700 shadow-sm"><Cloud className="h-5 w-5" /></div>
+                <p className="mt-7 text-[10px] font-black uppercase tracking-[0.22em] text-cyan-700">02 / Stay connected</p>
+                <h3 className="mt-3 max-w-xs text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">Cloud-based solutions</h3>
+                <p className="mt-3 max-w-sm text-sm leading-7 text-slate-600">Keep the tools and information your team needs within reach, wherever work happens.</p>
+                <div className="mt-auto flex items-center gap-3 pt-8">
+                  <div className="flex -space-x-2"><span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#effcff] bg-indigo-600 text-[10px] font-black text-white">T</span><span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#effcff] bg-cyan-600 text-[10px] font-black text-white">A</span><span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#effcff] bg-emerald-600 text-[10px] font-black text-white">M</span></div>
+                  <span className="text-xs font-bold text-slate-600">Your team, more connected</span>
+                </div>
+              </div>
+            </motion.article>
+
+            <motion.article
+              whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="relative min-h-[280px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-7 md:col-span-5 md:p-8"
+            >
+              <div aria-hidden="true" className="absolute bottom-[-4rem] right-[-3rem] h-48 w-48 rounded-full bg-emerald-100/70 blur-2xl" />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700"><ShieldCheck className="h-5 w-5" /></div>
+                <p className="mt-7 text-[10px] font-black uppercase tracking-[0.22em] text-emerald-700">03 / Build confidence</p>
+                <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">Data security</h3>
+                <p className="mt-3 max-w-sm text-sm leading-7 text-slate-500">Make the protection of important business information part of the plan.</p>
+                <div className="mt-auto flex items-center gap-2 pt-7 text-xs font-bold text-emerald-700"><Lock className="h-4 w-4" /> Security-minded by design</div>
+              </div>
+            </motion.article>
+
+            <motion.article
+              whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="relative min-h-[280px] overflow-hidden rounded-[2rem] border border-violet-100 bg-[#f5f2ff] p-7 md:col-span-7 md:p-8"
+            >
+              <div aria-hidden="true" className="absolute -right-8 -top-16 h-56 w-56 rounded-full bg-violet-200/70 blur-3xl" />
+              <div className="relative z-10 grid h-full gap-7 sm:grid-cols-[1fr_0.8fr] sm:items-center">
+                <div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-violet-700 shadow-sm"><BarChart3 className="h-5 w-5" /></div>
+                  <p className="mt-7 text-[10px] font-black uppercase tracking-[0.22em] text-violet-700">04 / See the bigger picture</p>
+                  <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">Clearer business insight</h3>
+                  <p className="mt-3 max-w-sm text-sm leading-7 text-slate-600">Organize information so your next step feels easier to understand.</p>
+                </div>
+                <div aria-hidden="true" className="flex h-36 items-end justify-center gap-2 rounded-2xl border border-white/80 bg-white/70 px-5 pb-4 pt-5 shadow-sm sm:h-40">
+                  {[38, 62, 48, 78, 58, 92, 70].map((height, index) => <motion.div key={index} initial={{ height: shouldReduceMotion ? `${height}%` : "8%" }} whileInView={{ height: `${height}%` }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.55, delay: index * 0.06, ease: "easeOut" }} className={`w-full rounded-t-md ${index === 5 ? "bg-gradient-to-t from-violet-600 to-cyan-400" : "bg-violet-200"}`} />)}
+                </div>
+              </div>
+            </motion.article>
+          </div>
+        </div>
+      </section>
+
+      {/* MOTION STORY — retain the existing animated brand section */}
       <MotionStudioSection />
 
-
-
-      {/* STATS */}
-
+      {/* PROOF POINTS */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.25 }}
-        variants={reveal}
-        transition={revealTransition}
-        className="border-y border-slate-200 bg-slate-50 py-14"
+        variants={rise}
+        transition={riseTransition}
+        className="relative overflow-hidden border-y border-slate-200 bg-[#f7f8fc] py-14 sm:py-16"
       >
-
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="grid gap-8 text-center sm:grid-cols-3">
-
-
-
-            <AnimatedCounter value={15} suffix="+" label="Years Overall Experience" />
-
-            <AnimatedCounter value={1000} suffix="+" label="Satisfied Clients" />
-
-            <AnimatedCounter value={90} suffix="%" label="Positive Feedbacks" />
-
-
-
+          <div className="mb-8 flex flex-col gap-2 text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.24em] text-indigo-600">Experience with purpose</p>
+            <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">Built around real business needs</h2>
           </div>
-
+          <div className="grid gap-8 border-t border-slate-200 pt-8 text-center sm:grid-cols-3 sm:gap-4">
+            <AnimatedCounter value={15} suffix="+" label="Years Overall Experience" />
+            <AnimatedCounter value={1000} suffix="+" label="Satisfied Clients" />
+            <AnimatedCounter value={90} suffix="%" label="Positive Feedbacks" />
+          </div>
         </div>
-
       </motion.section>
 
-
-
-      {/* FEATURED PRODUCT */}
-
-      <section className="py-20 sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="mx-auto max-w-3xl text-center">
-
-
-
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">
-
-              Featured Solution
-
-            </p>
-
-
-
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
-
-              Technology that makes business easier
-
-            </h2>
-
-
-
-            <p className="mt-4 text-slate-500">
-
-              Discover solutions designed to simplify
-
-              processes, organize information, and
-
-              support business growth.
-
-            </p>
-
-          </div>
-
-
-
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-
-
-
-            <motion.div
-                whileHover={{ y: shouldReduceMotion ? 0 : -8, scale: shouldReduceMotion ? 1 : 1.015 }}
-                transition={{ duration: 0.25 }}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-xl"
-              >
-
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-
-                <Layers3 />
-
+      {/* WHY TAGITSTORE */}
+      <section className="relative overflow-hidden bg-[#090d18] py-20 text-white sm:py-28">
+        <div aria-hidden="true" className="absolute inset-0 opacity-[0.13] [background-image:radial-gradient(rgba(148,163,184,0.8)_0.7px,transparent_0.7px)] [background-size:20px_20px]" />
+        <div aria-hidden="true" className="absolute -right-32 top-0 h-96 w-96 rounded-full bg-indigo-600/20 blur-[100px]" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+            <motion.div variants={rise} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={riseTransition}>
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-cyan-300">The TAGITStore approach</p>
+              <h2 className="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.05em] sm:text-5xl">Practical by design.<span className="block text-slate-500">People at the center.</span></h2>
+              <p className="mt-5 max-w-md text-sm leading-7 text-slate-400 sm:text-base">Good technology is more than features. It should fit the way your business works, help your team move with confidence, and make the next step clearer.</p>
+              <Link to="/about" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white transition-colors hover:text-cyan-300">Get to know us <ArrowRight className="h-4 w-4" /></Link>
+              <div className="mt-10 flex flex-wrap gap-2">
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-300">Thoughtful tools</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-300">Clear support</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-300">Built for business</span>
               </div>
-
-
-
-              <h3 className="mt-5 text-lg font-bold text-slate-950">
-
-                Business Automation
-
-              </h3>
-
-
-
-              <p className="mt-2 text-sm leading-7 text-slate-500">
-
-                Simplify repetitive workflows and
-
-                improve everyday business operations.
-
-              </p>
-
             </motion.div>
 
-
-
-            <motion.div
-                whileHover={{ y: shouldReduceMotion ? 0 : -8, scale: shouldReduceMotion ? 1 : 1.015 }}
-                transition={{ duration: 0.25 }}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-xl"
-              >
-
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
-
-                <Cloud />
-
-              </div>
-
-
-
-              <h3 className="mt-5 text-lg font-bold text-slate-950">
-
-                Cloud-Based Solutions
-
-              </h3>
-
-
-
-              <p className="mt-2 text-sm leading-7 text-slate-500">
-
-                Keep your business connected with
-
-                secure access from wherever you work.
-
-              </p>
-
-            </motion.div>
-
-
-
-            <motion.div
-                whileHover={{ y: shouldReduceMotion ? 0 : -8, scale: shouldReduceMotion ? 1 : 1.015 }}
-                transition={{ duration: 0.25 }}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-xl"
-              >
-
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
-
-                <ShieldCheck />
-
-              </div>
-
-
-
-              <h3 className="mt-5 text-lg font-bold text-slate-950">
-
-                Data Security
-
-              </h3>
-
-
-
-              <p className="mt-2 text-sm leading-7 text-slate-500">
-
-                Security-focused technology for
-
-                protecting important business data.
-
-              </p>
-
-            </motion.div>
-
-
-
-          </div>
-
-
-
-          <div className="mt-10 text-center">
-
-            <Link
-
-              to="/product"
-
-              className="inline-flex items-center gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-700"
-
-            >
-
-              Explore our product
-
-              <ChevronRight className="h-4 w-4" />
-
-            </Link>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      {/* VALUES */}
-
-      <section className="bg-slate-950 py-20 text-white sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="max-w-2xl">
-
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
-
-              Why TAGITStore
-
-            </p>
-
-
-
-            <h2 className="mt-3 text-3xl font-black sm:text-4xl">
-
-              Built around your business
-
-            </h2>
-
-          </div>
-
-
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-
-
-
-            {[
-
-              {
-
-                icon: ShieldCheck,
-
-                title: "Data Security",
-
-                text: "Security-focused solutions designed to protect important business information.",
-
-              },
-
-              {
-
-                icon: Headphones,
-
-                title: "Anytime Support",
-
-                text: "Support designed to help your business keep moving when you need assistance.",
-
-              },
-
-              {
-
-                icon: Cloud,
-
-                title: "Access Anywhere",
-
-                text: "Cloud-based solutions that make your business accessible wherever you work.",
-
-              },
-
-              {
-
-                icon: Users,
-
-                title: "Customer Values",
-
-                text: "Solutions built around practical customer and business requirements.",
-
-              },
-
-              {
-
-                icon: Zap,
-
-                title: "Affordability",
-
-                text: "Technology focused on useful features and practical business value.",
-
-              },
-
-              {
-
-                icon: BadgeCheck,
-
-                title: "Enduring Commitment",
-
-                text: "Long-term commitment to reliable business technology solutions.",
-
-              },
-
-            ].map((item) => {
-
-              const Icon = item.icon;
-
-
-
-              return (
-
-                <div
-
-                  key={item.title}
-
-                  className="rounded-3xl border border-white/10 bg-white/[0.04] p-6"
-
-                >
-
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-cyan-400">
-
-                    <Icon className="h-5 w-5" />
-
-                  </div>
-
-
-
-                  <h3 className="mt-5 text-lg font-bold">
-
-                    {item.title}
-
-                  </h3>
-
-
-
-                  <p className="mt-2 text-sm leading-7 text-slate-400">
-
-                    {item.text}
-
-                  </p>
-
-                </div>
-
-              );
-
-            })}
-
-
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      {/* CTA */}
-
-      <section className="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-
-        <motion.div
-          whileInView={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={revealTransition}
-          className="mx-auto max-w-7xl rounded-[2rem] bg-gradient-to-r from-indigo-600 to-cyan-500 p-8 text-white shadow-2xl sm:p-12 lg:p-16"
-        >
-
-
-
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
-
-
-
-            <div>
-
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/70">
-
-                Let's build together
-
-              </p>
-
-
-
-              <h2 className="mt-3 max-w-2xl text-3xl font-black sm:text-4xl">
-
-                Ready to move your business forward?
-
-              </h2>
-
-
-
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">
-
-                Explore TAGITStore solutions or get in touch
-
-                with our team to learn more.
-
-              </p>
-
+            <div className="grid gap-3 sm:grid-cols-2">
+              {benefits.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.article
+                    key={item.title}
+                    variants={rise}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{ ...riseTransition, delay: index * 0.07 }}
+                    whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+                    className="group rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-6 transition-colors duration-300 hover:border-cyan-300/25 hover:bg-white/[0.075]"
+                  >
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.07] text-cyan-300 transition duration-300 group-hover:scale-105 group-hover:bg-cyan-300/10"><Icon className="h-5 w-5" /></div>
+                    <h3 className="mt-5 text-base font-black text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-400">{item.text}</p>
+                  </motion.article>
+                );
+              })}
             </div>
-
-
-
-            <Link
-
-              to="/contact"
-
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-indigo-700 transition hover:bg-slate-100"
-
-            >
-
-              Contact Us
-
-              <ArrowRight className="h-4 w-4" />
-
-            </Link>
-
-
-
           </div>
-
-        </motion.div>
-
+        </div>
       </section>
 
+      {/* FINAL CTA */}
+      <section className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={riseTransition}
+          className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-700 via-violet-700 to-[#0c9eb5] p-8 text-white shadow-[0_30px_90px_rgba(79,70,229,0.2)] sm:rounded-[2.5rem] sm:p-12 lg:p-16"
+        >
+          <div aria-hidden="true" className="absolute -right-20 -top-28 h-80 w-80 rounded-full border border-white/15" />
+          <div aria-hidden="true" className="absolute -right-4 -top-12 h-56 w-56 rounded-full border border-white/10" />
+          <div aria-hidden="true" className="absolute bottom-[-6rem] left-[35%] h-64 w-64 rounded-full bg-cyan-300/20 blur-3xl" />
+          <div className="relative grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/70">Your next step starts here</p>
+              <h2 className="mt-4 max-w-3xl text-4xl font-black leading-[1.05] tracking-[-0.05em] sm:text-5xl lg:text-6xl">Let’s make business feel simpler.</h2>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">Tell us what your business needs. We’ll help you explore the right next step with TAGITStore.</p>
+            </div>
+            <Link to="/contact" className="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-white px-6 py-4 text-sm font-black text-indigo-700 shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-slate-100">Start a conversation <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+          </div>
+        </motion.div>
+      </section>
     </>
-
   );
-
 }
+
 
 
 
@@ -2529,206 +2009,154 @@ function HomePage() {
 
 
 function ProductPage() {
+  const shouldReduceMotion = useReducedMotion();
+  const features = [
+    {
+      icon: Users,
+      number: "01",
+      title: "Customer management",
+      text: "Keep customer information organized and make important records easier to find.",
+      tone: "from-indigo-500/15 to-violet-500/5",
+    },
+    {
+      icon: Package,
+      number: "02",
+      title: "Pledge management",
+      text: "Keep pledge details together in a structured, easier-to-follow workflow.",
+      tone: "from-cyan-500/15 to-sky-500/5",
+    },
+    {
+      icon: BarChart3,
+      number: "03",
+      title: "Business reports",
+      text: "Review useful business information to better understand day-to-day activity.",
+      tone: "from-emerald-500/15 to-teal-500/5",
+    },
+    {
+      icon: Cloud,
+      number: "04",
+      title: "Cloud access",
+      text: "Access business information through cloud-based technology when you need it.",
+      tone: "from-blue-500/15 to-indigo-500/5",
+    },
+    {
+      icon: Lock,
+      number: "05",
+      title: "Security-focused platform",
+      text: "Keep information protection in focus as your daily work moves forward.",
+      tone: "from-violet-500/15 to-fuchsia-500/5",
+    },
+    {
+      icon: Zap,
+      number: "06",
+      title: "Efficient operations",
+      text: "Bring recurring tasks into clearer workflows and reduce unnecessary friction.",
+      tone: "from-amber-500/15 to-orange-500/5",
+    },
+  ];
 
   return (
-
     <>
-
       <PageHero
-
         eyebrow="Our Product"
-
-        title="Pawn Broker's Automation"
-
-        description="A practical technology solution designed to simplify pawn broker operations, customer management, transactions, and everyday business workflows."
-
+        title="Pawn broker operations, brought into focus."
+        description="A practical technology solution for organizing customer records, pledge information, transactions, and everyday business workflows."
       />
 
-
-
-      <section className="py-20 sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-
-
-
-            {[
-
-              {
-
-                icon: Users,
-
-                title: "Customer Management",
-
-                text: "Organize customer information and maintain easy access to important records.",
-
-              },
-
-              {
-
-                icon: Package,
-
-                title: "Pledge Management",
-
-                text: "Manage pledge information and keep business records organized.",
-
-              },
-
-              {
-
-                icon: BarChart3,
-
-                title: "Business Reports",
-
-                text: "Access useful business information to understand daily performance.",
-
-              },
-
-              {
-
-                icon: Cloud,
-
-                title: "Cloud Access",
-
-                text: "Use cloud-based technology to access your business information wherever needed.",
-
-              },
-
-              {
-
-                icon: Lock,
-
-                title: "Secure Platform",
-
-                text: "Security-focused technology helps protect business information.",
-
-              },
-
-              {
-
-                icon: Zap,
-
-                title: "Efficient Operations",
-
-                text: "Reduce repetitive tasks and simplify important workflows.",
-
-              },
-
-            ].map((item) => {
-
-              const Icon = item.icon;
-
-
-
-              return (
-
-                <div
-
-                  key={item.title}
-
-                  className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm"
-
-                >
-
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-
-                    <Icon />
-
-                  </div>
-
-
-
-                  <h3 className="mt-5 text-lg font-bold text-slate-950">
-
-                    {item.title}
-
-                  </h3>
-
-
-
-                  <p className="mt-3 text-sm leading-7 text-slate-500">
-
-                    {item.text}
-
-                  </p>
-
-                </div>
-
-              );
-
-            })}
-
-
-
-          </div>
-
-
-
-          <div className="mt-16 rounded-3xl border border-indigo-100 bg-indigo-50 p-8 sm:p-10">
-
-
-
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-
-
-
-              <div>
-
-                <p className="text-sm font-bold text-indigo-600">
-
-                  Need more information?
-
-                </p>
-
-
-
-                <h2 className="mt-2 text-2xl font-black text-slate-950">
-
-                  Talk to our team about the product.
-
-                </h2>
-
-              </div>
-
-
-
-              <Link
-
-                to="/contact"
-
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white"
-
-              >
-
-                Contact Team
-
-                <ArrowRight className="h-4 w-4" />
-
+      <section className="relative overflow-hidden bg-white py-20 sm:py-28">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-8 h-80 w-80 rounded-full bg-indigo-100/70 blur-3xl" />
+        <div aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-cyan-100/60 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: shouldReduceMotion ? 0.01 : 0.65, ease: "easeOut" }}
+          >
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Designed around real workflows</p>
+            <h2 className="mt-4 max-w-xl text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
+              Less scattered work.
+              <span className="mt-1 block bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 bg-clip-text text-transparent">More clarity every day.</span>
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
+              Bring key information into a more organized experience, so your team can focus on customers and the work that matters.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/contact" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-indigo-700">
+                Discuss your needs <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-
-
-
+              <Link to="/support" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-5 py-3.5 text-sm font-bold text-slate-700 transition hover:border-indigo-300 hover:text-indigo-700">
+                Explore support
+              </Link>
             </div>
+          </motion.div>
 
-          </div>
-
-
-
+          <motion.div
+            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.96, y: shouldReduceMotion ? 0 : 18 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0.01 : 0.75, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto w-full max-w-xl"
+          >
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-indigo-400/20 via-violet-400/10 to-cyan-400/20 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 p-5 text-white shadow-[0_30px_90px_rgba(15,23,42,0.25)] sm:p-7">
+              <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400"><Layers3 className="h-5 w-5" /></div>
+                  <div><p className="text-sm font-bold">Operations overview</p><p className="mt-1 text-xs text-slate-400">A clearer business workspace</p></div>
+                </div>
+                <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300">Organized</span>
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><p className="text-xs text-slate-400">Customer records</p><div className="mt-4 flex items-center gap-2"><Users className="h-4 w-4 text-cyan-300" /><span className="text-sm font-semibold">Easy to find</span></div><div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10"><div className="h-full w-3/4 rounded-full bg-gradient-to-r from-cyan-400 to-indigo-400" /></div></div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4"><p className="text-xs text-slate-400">Pledge details</p><div className="mt-4 flex items-center gap-2"><Package className="h-4 w-4 text-violet-300" /><span className="text-sm font-semibold">Structured flow</span></div><div className="mt-4 flex gap-1.5"><span className="h-1.5 flex-1 rounded-full bg-violet-400" /><span className="h-1.5 flex-1 rounded-full bg-violet-400/60" /><span className="h-1.5 flex-1 rounded-full bg-white/10" /></div></div>
+              </div>
+              <div className="mt-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
+                <div className="mb-4 flex items-center justify-between"><p className="text-sm font-bold">Daily workflow</p><span className="text-[10px] uppercase tracking-wider text-slate-500">Illustrative preview</span></div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[{ icon: Users, label: "Customers" }, { icon: Package, label: "Pledges" }, { icon: BarChart3, label: "Reports" }].map((item, index) => { const Icon = item.icon; return <motion.div key={item.label} animate={shouldReduceMotion ? undefined : { y: [0, index === 1 ? -4 : 2, 0] }} transition={shouldReduceMotion ? undefined : { duration: 3.5 + index * 0.5, repeat: Infinity, ease: "easeInOut" }} className="rounded-xl border border-white/10 bg-slate-900/80 px-2 py-4 text-center"><Icon className="mx-auto h-5 w-5 text-cyan-300" /><p className="mt-2 text-[11px] font-semibold text-slate-200">{item.label}</p></motion.div>; })}
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-xs text-slate-400"><span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />Connected information. Clearer next steps.</div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-
       </section>
 
+      <section className="bg-slate-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Core capabilities</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">The details that keep work moving.</h2>
+            <p className="mt-4 text-base leading-7 text-slate-600">A practical set of capabilities built around the everyday needs of pawn broker operations.</p>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((item, index) => { const Icon = item.icon; return (
+              <motion.article key={item.title} initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, delay: shouldReduceMotion ? 0 : index * 0.045 }} whileHover={shouldReduceMotion ? undefined : { y: -5 }} className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm transition-shadow hover:shadow-xl hover:shadow-indigo-950/5 sm:p-7">
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.tone}`} />
+                <div className="flex items-start justify-between"><div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-cyan-300 transition duration-300 group-hover:scale-105 group-hover:bg-indigo-600"><Icon className="h-5 w-5" /></div><span className="text-xs font-black tracking-[0.18em] text-slate-300">{item.number}</span></div>
+                <h3 className="mt-6 text-lg font-extrabold text-slate-950">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
+                <div className="mt-5 flex items-center gap-2 text-xs font-bold text-indigo-600">Explore capability <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" /></div>
+              </motion.article>
+            ); })}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-slate-950 px-6 py-10 text-white sm:px-10 sm:py-14 lg:px-14">
+          <div aria-hidden="true" className="absolute -right-12 -top-24 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl" />
+          <div aria-hidden="true" className="absolute bottom-[-7rem] left-1/3 h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl" />
+          <div className="relative flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-2xl"><p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-300">Start a conversation</p><h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Let’s find the right workflow for your business.</h2><p className="mt-4 max-w-xl text-sm leading-7 text-slate-300">Tell us what you need to organize, and our team can discuss the solution with you.</p></div>
+            <Link to="/contact" className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-extrabold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-100">Talk to our team <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
+          </div>
+        </div>
+      </section>
     </>
-
   );
-
 }
-
-
 
 /* =========================================================
 
@@ -2739,208 +2167,41 @@ function ProductPage() {
 
 
 function SupportPage() {
+  const shouldReduceMotion = useReducedMotion();
+  const supportOptions = [
+    { icon: Headphones, number: "01", title: "Direct support", text: "Connect with our team for help with your TAGITStore solution.", action: "Call the team", href: "tel:+919843166444", accent: "text-cyan-300" },
+    { icon: MessageCircle, number: "02", title: "Business guidance", text: "Talk through your requirements and get guidance on using technology in your workflow.", action: "Start on WhatsApp", href: "https://wa.me/919843166444", accent: "text-emerald-300" },
+    { icon: Code2, number: "03", title: "Technical assistance", text: "Share a platform-related question or issue with the support team.", action: "Email support", href: "mailto:istorecare@tagit.store", accent: "text-violet-300" },
+  ];
 
   return (
-
     <>
-
-      <PageHero
-
-        eyebrow="Customer Support"
-
-        title="Support when your business needs it"
-
-        description="Get assistance, guidance, and practical support for your TAGITStore solutions."
-
-      />
-
-
-
-      <section className="py-20 sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="grid gap-6 lg:grid-cols-3">
-
-
-
-            {[
-
-              {
-
-                icon: Headphones,
-
-                title: "Direct Support",
-
-                text: "Connect with our support team for assistance with your solution.",
-
-              },
-
-              {
-
-                icon: MessageCircle,
-
-                title: "Business Guidance",
-
-                text: "Get practical guidance for using technology effectively in your operations.",
-
-              },
-
-              {
-
-                icon: Code2,
-
-                title: "Technical Assistance",
-
-                text: "Receive help with technical questions and platform-related issues.",
-
-              },
-
-            ].map((item) => {
-
-              const Icon = item.icon;
-
-
-
-              return (
-
-                <div
-
-                  key={item.title}
-
-                  className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm"
-
-                >
-
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
-
-                    <Icon />
-
-                  </div>
-
-
-
-                  <h3 className="mt-5 text-lg font-bold text-slate-950">
-
-                    {item.title}
-
-                  </h3>
-
-
-
-                  <p className="mt-3 text-sm leading-7 text-slate-500">
-
-                    {item.text}
-
-                  </p>
-
-                </div>
-
-              );
-
-            })}
-
-
-
-          </div>
-
-
-
-          <div className="mt-12 rounded-3xl bg-slate-950 p-8 text-white sm:p-10">
-
-
-
-            <div className="grid gap-8 md:grid-cols-2">
-
-
-
-              <div>
-
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
-
-                  Need help?
-
-                </p>
-
-
-
-                <h2 className="mt-3 text-3xl font-black">
-
-                  Talk to TAGITStore support.
-
-                </h2>
-
-
-
-                <p className="mt-4 text-sm leading-7 text-slate-400">
-
-                  Reach out using email or phone and our
-
-                  team can assist with your requirements.
-
-                </p>
-
-              </div>
-
-
-
-              <div className="space-y-4">
-
-
-
-                <a
-
-                  href="mailto:istorecare@tagit.store"
-
-                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm"
-
-                >
-
-                  <Mail className="text-cyan-400" />
-
-                  istorecare@tagit.store
-
-                </a>
-
-
-
-                <a
-
-                  href="tel:+919843166444"
-
-                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm"
-
-                >
-
-                  <Phone className="text-cyan-400" />
-
-                  +91 98431 66444
-
-                </a>
-
-
-
-              </div>
-
+      <PageHero eyebrow="Customer Support" title="Good support starts with a clear next step." description="Get assistance, practical guidance, and a direct way to reach the TAGITStore team when you need help with your solution." />
+
+      <section className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24">
+        <div aria-hidden="true" className="absolute right-[-8rem] top-[-6rem] h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+            <div><p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-300">Help, without the guesswork</p><h2 className="mt-4 text-3xl font-black leading-tight tracking-tight sm:text-5xl">Find the right way to reach us.</h2><p className="mt-5 max-w-lg text-base leading-8 text-slate-400">Choose the contact route that best fits your question. We can discuss product information, business requirements, and technical assistance.</p></div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[{ value: "Product", label: "Information" }, { value: "Technical", label: "Questions" }, { value: "Business", label: "Guidance" }].map((item, index) => <motion.div key={item.value} initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.4, delay: index * 0.08 }} className="rounded-2xl border border-white/10 bg-white/[0.045] p-5"><p className="text-lg font-extrabold">{item.value}</p><p className="mt-1 text-xs text-slate-400">{item.label}</p><div className="mt-5 h-px bg-gradient-to-r from-cyan-300/70 to-transparent" /></motion.div>)}
             </div>
-
           </div>
-
-
-
         </div>
-
       </section>
 
+      <section className="bg-slate-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl"><p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Contact options</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">A simple path to support.</h2><p className="mt-4 text-base leading-7 text-slate-600">Choose an option below to contact the team directly.</p></div>
+          <div className="mt-9 grid gap-4 lg:grid-cols-3">
+            {supportOptions.map((item, index) => { const Icon = item.icon; return <motion.article key={item.title} initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, delay: index * 0.07 }} whileHover={shouldReduceMotion ? undefined : { y: -5 }} className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5"><div className="flex items-center justify-between"><div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950"><Icon className={`h-5 w-5 ${item.accent}`} /></div><span className="text-xs font-black tracking-[0.2em] text-slate-300">{item.number}</span></div><h3 className="mt-6 text-xl font-extrabold text-slate-950">{item.title}</h3><p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{item.text}</p><a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noreferrer" : undefined} className="mt-7 inline-flex items-center gap-2 text-sm font-extrabold text-indigo-600">{item.action}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></a></motion.article>; })}
+          </div>
+          <div className="mt-8 flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"><div><p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">Have a specific requirement?</p><h3 className="mt-2 text-xl font-extrabold text-slate-950">Give us a little context.</h3><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Email your question or call us to discuss product information, pricing, or support needs.</p></div><Link to="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-indigo-700">Contact details <ArrowRight className="h-4 w-4" /></Link></div>
+        </div>
+      </section>
     </>
-
   );
-
 }
-
-
 
 /* =========================================================
 
@@ -2951,248 +2212,67 @@ function SupportPage() {
 
 
 function AboutPage() {
+  const shouldReduceMotion = useReducedMotion();
+  const values = [
+    { icon: BadgeCheck, title: "Enduring commitment", text: "A long-term focus on dependable technology and customer relationships." },
+    { icon: Headphones, title: "Anytime support", text: "Support that helps customers work through questions and requirements." },
+    { icon: Cloud, title: "Access anywhere", text: "Cloud-based technology designed around accessibility and convenience." },
+    { icon: Users, title: "Customer values", text: "Practical solutions shaped around real business needs." },
+    { icon: Sparkles, title: "Affordability", text: "A focus on useful features and practical business value." },
+    { icon: ShieldCheck, title: "Data security", text: "Keeping protection and responsible handling of information in focus." },
+  ];
 
   return (
-
     <>
+      <PageHero eyebrow="About TAGITStore" title="Technology should make business feel simpler." description="We focus on practical technology and SaaS-based solutions that help businesses organize their work, serve customers, and move forward with confidence." />
 
-      <PageHero
-
-        eyebrow="About TAGITStore"
-
-        title="Technology built to support business growth"
-
-        description="TAGITStore is focused on creating practical technology solutions that help businesses simplify operations and work more efficiently."
-
-      />
-
-
-
-      <section className="py-20 sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-
-
-
-            <div>
-
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">
-
-                Our Story
-
-              </p>
-
-
-
-              <h2 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">
-
-                Experience, innovation, and commitment
-
-              </h2>
-
-
-
-              <p className="mt-6 text-base leading-8 text-slate-600">
-
-                TAGITStore is part of TAGTES Group and focuses
-
-                on delivering innovative technology and SaaS-based
-
-                solutions for businesses.
-
-              </p>
-
-
-
-              <p className="mt-4 text-base leading-8 text-slate-600">
-
-                Our approach is centered around practical
-
-                business requirements, secure technology,
-
-                accessibility, affordability, and long-term
-
-                customer support.
-
-              </p>
-
+      <section className="relative overflow-hidden bg-white py-20 sm:py-28">
+        <div aria-hidden="true" className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-indigo-100/70 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
+          <motion.div initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.6 }}>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Our story</p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">Experience, innovation, and a commitment to the everyday details.</h2>
+            <p className="mt-6 text-base leading-8 text-slate-600">TAGITStore is part of TAGTES Group and focuses on delivering innovative technology and SaaS-based solutions for businesses.</p>
+            <p className="mt-4 text-base leading-8 text-slate-600">Our approach centers on practical business requirements, security-focused technology, accessibility, affordability, and long-term customer support.</p>
+            <div className="mt-8 flex flex-wrap gap-2">{["Practical by design", "Customer focused", "Built for business"].map((item) => <span key={item} className="rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700">{item}</span>)}</div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.7 }} className="relative mx-auto w-full max-w-xl">
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-indigo-400/20 via-violet-400/10 to-cyan-400/20 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[2rem] bg-slate-950 p-6 text-white shadow-[0_30px_80px_rgba(15,23,42,0.22)] sm:p-8">
+              <div className="flex items-center justify-between"><div><p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-300">The TAGITStore approach</p><p className="mt-2 text-lg font-extrabold">Useful technology. Clearer work.</p></div><div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-400"><Sparkles className="h-6 w-6" /></div></div>
+              <div className="relative my-8 flex h-52 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
+                <motion.div aria-hidden="true" animate={shouldReduceMotion ? undefined : { rotate: 360 }} transition={shouldReduceMotion ? undefined : { duration: 24, repeat: Infinity, ease: "linear" }} className="absolute h-40 w-40 rounded-full border border-cyan-300/20"><span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-cyan-300" /></motion.div>
+                <motion.div aria-hidden="true" animate={shouldReduceMotion ? undefined : { rotate: -360 }} transition={shouldReduceMotion ? undefined : { duration: 18, repeat: Infinity, ease: "linear" }} className="absolute h-28 w-28 rounded-full border border-violet-300/30"><span className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-violet-300" /></motion.div>
+                <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-white/15 bg-white/10 shadow-[0_0_55px_rgba(34,211,238,0.18)] backdrop-blur"><Layers3 className="h-8 w-8 text-cyan-300" /></div>
+                <div className="absolute left-4 top-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-200">Practical tools</div><div className="absolute bottom-4 right-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-slate-200">People first</div>
+              </div>
+              <div className="grid grid-cols-3 gap-2">{[{ icon: ShieldCheck, label: "Security" }, { icon: Cloud, label: "Access" }, { icon: Users, label: "Customers" }].map((item) => { const Icon = item.icon; return <div key={item.label} className="rounded-xl border border-white/10 bg-white/[0.045] p-3 text-center"><Icon className="mx-auto h-4 w-4 text-cyan-300" /><p className="mt-2 text-[11px] font-bold text-slate-300">{item.label}</p></div>; })}</div>
             </div>
-
-
-
-            <div className="grid gap-4 sm:grid-cols-2">
-
-
-
-              <div className="rounded-3xl bg-slate-950 p-7 text-white">
-
-                <Sparkles className="h-7 w-7 text-cyan-400" />
-
-                <p className="mt-6 text-3xl font-black">
-
-                  15+
-
-                </p>
-
-                <p className="mt-2 text-sm text-slate-400">
-
-                  Years of overall experience
-
-                </p>
-
-              </div>
-
-
-
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-7">
-
-                <Users className="h-7 w-7 text-indigo-600" />
-
-                <p className="mt-6 text-3xl font-black text-slate-950">
-
-                  1000+
-
-                </p>
-
-                <p className="mt-2 text-sm text-slate-500">
-
-                  Satisfied clients
-
-                </p>
-
-              </div>
-
-
-
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-7">
-
-                <ShieldCheck className="h-7 w-7 text-emerald-600" />
-
-                <p className="mt-6 text-3xl font-black text-slate-950">
-
-                  Secure
-
-                </p>
-
-                <p className="mt-2 text-sm text-slate-500">
-
-                  Security-focused solutions
-
-                </p>
-
-              </div>
-
-
-
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-7">
-
-                <Cloud className="h-7 w-7 text-cyan-600" />
-
-                <p className="mt-6 text-3xl font-black text-slate-950">
-
-                  SaaS
-
-                </p>
-
-                <p className="mt-2 text-sm text-slate-500">
-
-                  Cloud-based technology
-
-                </p>
-
-              </div>
-
-
-
-            </div>
-
-          </div>
-
-
-
-          <div className="mt-16">
-
-
-
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">
-
-              Our Values
-
-            </p>
-
-
-
-            <h2 className="mt-3 text-3xl font-black text-slate-950">
-
-              What guides us
-
-            </h2>
-
-
-
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
-
-
-
-              {[
-
-                "Enduring Commitment",
-
-                "Anytime Support",
-
-                "Access Anywhere",
-
-                "Customer Values",
-
-                "Affordability",
-
-                "Data Security",
-
-              ].map((value) => (
-
-                <div
-
-                  key={value}
-
-                  className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5"
-
-                >
-
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-indigo-600" />
-
-                  <span className="text-sm font-bold text-slate-800">
-
-                    {value}
-
-                  </span>
-
-                </div>
-
-              ))}
-
-
-
-            </div>
-
-          </div>
-
-
-
+          </motion.div>
         </div>
-
       </section>
 
+      <section className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-9 max-w-2xl"><p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Experience and focus</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">The foundation behind our work.</h2></div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[{ icon: Sparkles, value: "15+", label: "Years of overall experience" }, { icon: Users, value: "1,000+", label: "Satisfied clients" }, { icon: ShieldCheck, value: "Secure", label: "Security-focused solutions" }, { icon: Cloud, value: "SaaS", label: "Cloud-based technology" }].map((item, index) => { const Icon = item.icon; return <motion.div key={item.label} initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.4, delay: index * 0.05 }} className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-7"><Icon className="h-5 w-5 text-indigo-600" /><p className="mt-6 text-3xl font-black tracking-tight text-slate-950">{item.value}</p><p className="mt-2 text-sm leading-6 text-slate-500">{item.label}</p></motion.div>; })}
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-500">Experience and client figures reflect the information currently presented by TAGITStore.</p>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl"><p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Our values</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">What guides every decision.</h2><p className="mt-4 text-base leading-7 text-slate-600">The principles behind the products we build and the support we provide.</p></div>
+          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{values.map((item, index) => { const Icon = item.icon; return <motion.article key={item.title} initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.4, delay: index * 0.04 }} className="group rounded-3xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-950/5"><div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white"><Icon className="h-5 w-5" /></div><h3 className="mt-5 text-lg font-extrabold text-slate-950">{item.title}</h3><p className="mt-2 text-sm leading-7 text-slate-600">{item.text}</p></motion.article>; })}</div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-20 sm:px-6 lg:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[2rem] bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-600 p-8 text-white sm:p-10 md:flex-row md:items-center md:justify-between"><div><p className="text-xs font-black uppercase tracking-[0.22em] text-white/70">Let’s build forward</p><h2 className="mt-2 text-2xl font-black sm:text-3xl">Looking for a practical technology partner?</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-white/80">Tell us about your business and what you want to make simpler.</p></div><Link to="/contact" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-extrabold text-indigo-700 transition hover:-translate-y-0.5">Contact TAGITStore <ArrowRight className="h-4 w-4" /></Link></div></section>
     </>
-
   );
-
 }
-
-
 
 /* =========================================================
 
@@ -3203,228 +2283,33 @@ function AboutPage() {
 
 
 function PricingPage() {
+  const shouldReduceMotion = useReducedMotion();
+  const plans = [
+    { id: "01", label: "Starter", title: "Essential", description: "For businesses beginning their digital transformation journey.", points: ["Discuss core business needs", "Identify priority workflows", "Explore a suitable solution"], featured: false, action: "Explore essential options" },
+    { id: "02", label: "Business", title: "Professional", description: "For businesses looking for broader capabilities and ongoing support.", points: ["Review broader requirements", "Discuss workflow improvements", "Plan support needs"], featured: true, action: "Discuss your requirements" },
+    { id: "03", label: "Enterprise", title: "Custom", description: "For organizations with specialized requirements or larger deployments.", points: ["Discuss specific requirements", "Review implementation scope", "Explore a tailored approach"], featured: false, action: "Request details" },
+  ];
 
   return (
-
     <>
+      <PageHero eyebrow="Pricing" title="A solution shaped around your business." description="Technology needs differ from one business to another. Let’s discuss your goals, requirements, and implementation scope to find a suitable approach." />
 
-      <PageHero
-
-        eyebrow="Pricing"
-
-        title="Choose a solution that fits your business"
-
-        description="Flexible technology solutions designed to deliver practical value for businesses of different sizes and requirements."
-
-      />
-
-
-
-      <section className="py-20 sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="mx-auto max-w-2xl text-center">
-
-            <p className="text-sm text-slate-500">
-
-              Pricing can be tailored to your business
-
-              requirements.
-
-            </p>
-
-
-
-            <h2 className="mt-2 text-3xl font-black text-slate-950">
-
-              Talk to us for a suitable plan
-
-            </h2>
-
+      <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div aria-hidden="true" className="absolute left-1/2 top-0 h-80 w-[42rem] -translate-x-1/2 rounded-full bg-indigo-100/60 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center"><p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Flexible by design</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">Clarity before commitment.</h2><p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600">We’ll start by understanding what you need. Pricing depends on the selected solution, requirements, and implementation scope, so contact the team for details.</p></div>
+          <div className="mt-12 grid items-stretch gap-5 lg:grid-cols-3">
+            {plans.map((plan, index) => <motion.article key={plan.id} initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.48, delay: index * 0.07 }} whileHover={shouldReduceMotion ? undefined : { y: -5 }} className={`relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border p-7 shadow-sm transition-shadow sm:p-8 ${plan.featured ? "border-indigo-500 bg-slate-950 text-white shadow-2xl shadow-indigo-950/15" : "border-slate-200 bg-white text-slate-950 hover:shadow-xl hover:shadow-slate-900/5"}`}>
+              {plan.featured && <><div aria-hidden="true" className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-indigo-500/25 blur-3xl" /><span className="absolute right-5 top-5 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.17em] text-cyan-300">Popular option</span></>}
+              <div className="relative"><p className={`text-xs font-black uppercase tracking-[0.2em] ${plan.featured ? "text-cyan-300" : "text-indigo-600"}`}>{plan.id} / {plan.label}</p><h3 className="mt-4 text-3xl font-black tracking-tight">{plan.title}</h3><p className={`mt-4 min-h-[4.5rem] text-sm leading-7 ${plan.featured ? "text-slate-300" : "text-slate-600"}`}>{plan.description}</p><div className={`my-6 h-px ${plan.featured ? "bg-white/15" : "bg-slate-200"}`} /><ul className="space-y-3">{plan.points.map((point) => <li key={point} className={`flex items-start gap-2.5 text-sm ${plan.featured ? "text-slate-200" : "text-slate-700"}`}><CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.featured ? "text-cyan-300" : "text-emerald-500"}`} />{point}</li>)}</ul><div className="mt-8 flex-1" /><Link to="/contact" className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-extrabold transition hover:-translate-y-0.5 ${plan.featured ? "bg-white text-slate-950 hover:bg-cyan-100" : "border border-slate-200 bg-white text-slate-800 hover:border-indigo-300 hover:text-indigo-700"}`}>{plan.action}<ArrowRight className="h-4 w-4" /></Link></div>
+            </motion.article>)}
           </div>
-
-
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-
-
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-
-              <p className="text-sm font-bold text-indigo-600">
-
-                Starter
-
-              </p>
-
-
-
-              <h3 className="mt-3 text-2xl font-black text-slate-950">
-
-                Essential
-
-              </h3>
-
-
-
-              <p className="mt-3 text-sm leading-7 text-slate-500">
-
-                Suitable for businesses beginning their
-
-                digital transformation journey.
-
-              </p>
-
-
-
-              <Link
-
-                to="/contact"
-
-                className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-800"
-
-              >
-
-                Contact Us
-
-                <ArrowRight className="h-4 w-4" />
-
-              </Link>
-
-            </div>
-
-
-
-            <div className="relative rounded-3xl border-2 border-indigo-500 bg-slate-950 p-7 text-white shadow-xl">
-
-
-
-              <div className="absolute right-5 top-5 rounded-full bg-indigo-500 px-3 py-1 text-[10px] font-bold uppercase tracking-wider">
-
-                Popular
-
-              </div>
-
-
-
-              <p className="text-sm font-bold text-cyan-400">
-
-                Business
-
-              </p>
-
-
-
-              <h3 className="mt-3 text-2xl font-black">
-
-                Professional
-
-              </h3>
-
-
-
-              <p className="mt-3 text-sm leading-7 text-slate-400">
-
-                Designed for businesses that need broader
-
-                capabilities and ongoing support.
-
-              </p>
-
-
-
-              <Link
-
-                to="/contact"
-
-                className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-slate-950"
-
-              >
-
-                Discuss Requirements
-
-                <ArrowRight className="h-4 w-4" />
-
-              </Link>
-
-            </div>
-
-
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-
-              <p className="text-sm font-bold text-emerald-600">
-
-                Enterprise
-
-              </p>
-
-
-
-              <h3 className="mt-3 text-2xl font-black text-slate-950">
-
-                Custom
-
-              </h3>
-
-
-
-              <p className="mt-3 text-sm leading-7 text-slate-500">
-
-                For organizations with specialized
-
-                requirements and larger deployments.
-
-              </p>
-
-
-
-              <Link
-
-                to="/contact"
-
-                className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-800"
-
-              >
-
-                Request Details
-
-                <ArrowRight className="h-4 w-4" />
-
-              </Link>
-
-            </div>
-
-
-
-          </div>
-
-
-
-          <p className="mt-8 text-center text-xs text-slate-500">
-
-            Pricing depends on the selected solution,
-
-            requirements, and implementation scope.
-
-          </p>
-
-
-
+          <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"><div className="flex items-start gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm"><MessageCircle className="h-5 w-5" /></div><div><p className="text-sm font-extrabold text-slate-950">Not sure which option fits?</p><p className="mt-1 text-sm leading-6 text-slate-600">Tell us what you are trying to achieve, and we can discuss an appropriate starting point.</p></div></div><Link to="/contact" className="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-indigo-600">Talk to the team <ArrowRight className="h-4 w-4" /></Link></div>
         </div>
-
       </section>
-
     </>
-
   );
-
 }
-
-
 
 /* =========================================================
 
@@ -3435,402 +2320,37 @@ function PricingPage() {
 
 
 function ContactPage() {
+  const shouldReduceMotion = useReducedMotion();
+  const contactMethods = [
+    { icon: Mail, label: "Email", detail: "istorecare@tagit.store", hint: "For enquiries and product information", href: "mailto:istorecare@tagit.store?subject=TAGITStore%20Website%20Enquiry", tone: "bg-indigo-50 text-indigo-600", external: false },
+    { icon: Phone, label: "Phone", detail: "+91 98431 66444", hint: "Speak with the team", href: "tel:+919843166444", tone: "bg-cyan-50 text-cyan-700", external: false },
+    { icon: MessageCircle, label: "WhatsApp", detail: "Message TAGITStore", hint: "Start a conversation", href: "https://wa.me/919843166444", tone: "bg-emerald-50 text-emerald-700", external: true },
+  ];
 
   return (
-
     <>
-
-      <PageHero
-
-        eyebrow="Contact Us"
-
-        title="Let's talk about your business requirements"
-
-        description="Reach out to the TAGITStore team to discuss products, support, pricing, or your specific technology needs."
-
-      />
-
-
-
-      <section className="py-20 sm:py-24">
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-
-
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-
-
-
-            {/* CONTACT INFO */}
-
-            <div className="rounded-3xl bg-slate-950 p-8 text-white sm:p-10">
-
-
-
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
-
-                Get in touch
-
-              </p>
-
-
-
-              <h2 className="mt-3 text-3xl font-black">
-
-                We are here to help.
-
-              </h2>
-
-
-
-              <p className="mt-4 text-sm leading-7 text-slate-400">
-
-                Contact us to learn more about TAGITStore
-
-                products and business solutions.
-
-              </p>
-
-
-
-              <div className="mt-8 space-y-5">
-
-
-
-                <a
-
-                  href="mailto:istorecare@tagit.store"
-
-                  className="flex gap-4"
-
-                >
-
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-cyan-400">
-
-                    <Mail className="h-5 w-5" />
-
-                  </div>
-
-
-
-                  <div>
-
-                    <p className="text-xs text-slate-500">
-
-                      Email
-
-                    </p>
-
-
-
-                    <p className="mt-1 text-sm font-semibold">
-
-                      istorecare@tagit.store
-
-                    </p>
-
-                  </div>
-
-                </a>
-
-
-
-                <a
-
-                  href="tel:+919843166444"
-
-                  className="flex gap-4"
-
-                >
-
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-cyan-400">
-
-                    <Phone className="h-5 w-5" />
-
-                  </div>
-
-
-
-                  <div>
-
-                    <p className="text-xs text-slate-500">
-
-                      Phone
-
-                    </p>
-
-
-
-                    <p className="mt-1 text-sm font-semibold">
-
-                      +91 98431 66444
-
-                    </p>
-
-                  </div>
-
-                </a>
-
-
-
-                <div className="flex gap-4">
-
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-cyan-400">
-
-                    <MapPin className="h-5 w-5" />
-
-                  </div>
-
-
-
-                  <div>
-
-                    <p className="text-xs text-slate-500">
-
-                      Location
-
-                    </p>
-
-
-
-                    <p className="mt-1 text-sm font-semibold">
-
-                      India
-
-                    </p>
-
-                  </div>
-
-                </div>
-
-
-
-              </div>
-
-
-
-              <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-5">
-
-                <p className="text-sm font-bold">
-
-                  Business support
-
-                </p>
-
-
-
-                <p className="mt-2 text-xs leading-6 text-slate-400">
-
-                  Our team can help with product
-
-                  information, support requirements,
-
-                  pricing, and business solutions.
-
-                </p>
-
-              </div>
-
-
-
+      <PageHero eyebrow="Contact Us" title="Every good solution starts with a conversation." description="Tell the TAGITStore team what you’re looking to improve. We can discuss product information, support, pricing, and your business requirements." />
+
+      <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-10 h-80 w-80 rounded-full bg-cyan-100/70 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+          <motion.div initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.55 }} className="relative overflow-hidden rounded-[2rem] bg-slate-950 p-7 text-white shadow-xl shadow-slate-950/10 sm:p-9">
+            <div aria-hidden="true" className="absolute -right-16 -top-16 h-60 w-60 rounded-full bg-indigo-500/25 blur-3xl" /><div aria-hidden="true" className="absolute bottom-[-5rem] left-[-3rem] h-52 w-52 rounded-full bg-cyan-400/15 blur-3xl" />
+            <div className="relative"><div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-400"><MessageCircle className="h-5 w-5" /></div><p className="mt-8 text-xs font-black uppercase tracking-[0.24em] text-cyan-300">Get in touch</p><h2 className="mt-3 text-3xl font-black leading-tight tracking-tight sm:text-4xl">Let’s make the next step clear.</h2><p className="mt-5 text-sm leading-7 text-slate-300">Whether you have a question about a product or a specific business requirement, choose a contact option and reach out to us.</p>
+              <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.045] p-5"><div className="flex items-start gap-3"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-cyan-300" /><div><p className="text-sm font-extrabold">TAGITStore</p><p className="mt-1 text-sm text-slate-400">India</p></div></div><div className="mt-5 h-px bg-white/10" /><p className="mt-4 text-xs leading-6 text-slate-400">For product information, support requirements, pricing, and business solution enquiries.</p></div>
             </div>
-
-
-
-            {/* CONTACT CARD */}
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
-
-
-
-              <h2 className="text-2xl font-black text-slate-950">
-
-                Tell us what you need
-
-              </h2>
-
-
-
-              <p className="mt-2 text-sm text-slate-500">
-
-                Use the details below to contact our team.
-
-              </p>
-
-
-
-              <div className="mt-8 space-y-4">
-
-
-
-                <a
-
-                  href="mailto:istorecare@tagit.store?subject=TAGITStore%20Website%20Enquiry"
-
-                  className="flex items-center justify-between rounded-2xl border border-slate-200 p-5 transition hover:border-indigo-300 hover:bg-indigo-50/50"
-
-                >
-
-                  <div className="flex items-center gap-4">
-
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-
-                      <Mail className="h-5 w-5" />
-
-                    </div>
-
-
-
-                    <div>
-
-                      <p className="text-xs text-slate-500">
-
-                        Email us
-
-                      </p>
-
-
-
-                      <p className="mt-1 text-sm font-bold text-slate-900">
-
-                        istorecare@tagit.store
-
-                      </p>
-
-                    </div>
-
-                  </div>
-
-
-
-                  <ArrowRight className="h-5 w-5 text-slate-400" />
-
-                </a>
-
-
-
-                <a
-
-                  href="https://wa.me/919843166444"
-
-                  target="_blank"
-
-                  rel="noreferrer"
-
-                  className="flex items-center justify-between rounded-2xl border border-slate-200 p-5 transition hover:border-emerald-300 hover:bg-emerald-50/50"
-
-                >
-
-                  <div className="flex items-center gap-4">
-
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-
-                      <MessageCircle className="h-5 w-5" />
-
-                    </div>
-
-
-
-                    <div>
-
-                      <p className="text-xs text-slate-500">
-
-                        WhatsApp / Phone
-
-                      </p>
-
-
-
-                      <p className="mt-1 text-sm font-bold text-slate-900">
-
-                        +91 98431 66444
-
-                      </p>
-
-                    </div>
-
-                  </div>
-
-
-
-                  <ArrowRight className="h-5 w-5 text-slate-400" />
-
-                </a>
-
-
-
-              </div>
-
-
-
-              <div className="mt-8 rounded-2xl bg-slate-50 p-5">
-
-                <p className="text-sm font-bold text-slate-900">
-
-                  What can we help with?
-
-                </p>
-
-
-
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-
-
-
-                  {[
-
-                    "Product information",
-
-                    "Support",
-
-                    "Pricing",
-
-                    "Business requirements",
-
-                  ].map((item) => (
-
-                    <div
-
-                      key={item}
-
-                      className="flex items-center gap-2 text-sm text-slate-600"
-
-                    >
-
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-
-                      {item}
-
-                    </div>
-
-                  ))}
-
-
-
-                </div>
-
-              </div>
-
-
-
-            </div>
-
-
-
+          </motion.div>
+
+          <div className="flex flex-col gap-4">
+            <div className="mb-1"><p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">Choose your channel</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">How can we help?</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Use the option that feels easiest. Each link opens the relevant contact method directly.</p></div>
+            {contactMethods.map((item, index) => { const Icon = item.icon; return <motion.a key={item.label} href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noreferrer" : undefined} initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 15 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: shouldReduceMotion ? 0.01 : 0.4, delay: index * 0.06 }} whileHover={shouldReduceMotion ? undefined : { x: 4 }} className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-200 hover:shadow-lg hover:shadow-slate-900/5 sm:p-6"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${item.tone}`}><Icon className="h-5 w-5" /></div><div className="min-w-0 flex-1"><p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">{item.label}</p><p className="mt-1 break-words text-base font-extrabold text-slate-950">{item.detail}</p><p className="mt-1 text-xs text-slate-500">{item.hint}</p></div><ArrowRight className="h-5 w-5 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-indigo-600" /></motion.a>; })}
+            <div className="mt-2 rounded-2xl border border-indigo-100 bg-indigo-50/80 p-5 sm:p-6"><p className="text-sm font-extrabold text-slate-950">What would you like to discuss?</p><div className="mt-4 flex flex-wrap gap-2">{["Product information", "Support", "Pricing", "Business requirements"].map((item) => <span key={item} className="inline-flex items-center gap-1.5 rounded-full border border-indigo-100 bg-white px-3 py-2 text-xs font-bold text-slate-700"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />{item}</span>)}</div></div>
           </div>
-
         </div>
-
       </section>
-
     </>
-
   );
-
 }
-
-
 
 /* =========================================================
 
